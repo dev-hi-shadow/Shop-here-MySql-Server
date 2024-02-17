@@ -46,6 +46,10 @@ app.get("/", (req, res) => {
     );
 });
 
+// Deefined API Routes
+
+app.use(require("./routes/index"));
+
 // common middleware to handle all errors
 app.use((err, req, res, next) => {
   console.log("errorHandler Error", err);

@@ -8,6 +8,7 @@ const sequelize = new Sequelize(
   {
     host: config.host,
     port: 3306,
+    logging: false,
     dialect: config.dialect,
     pool: {
       min: 0, // Minimum number of connection in pool

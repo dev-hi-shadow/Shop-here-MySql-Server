@@ -1,7 +1,15 @@
 const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../../config/mysql");
+const { sequelize } = require("../../config/mysql");
 
-class Roles extends Model {}
+class Roles extends Model {
+  static associate(db) {
+    Roles.hasMany(db.users, {
+      as: "users",
+      foreignKey: "role_id",
+      sourceKey: "id",
+    });
+  }
+}
 
 Roles.init(
   {
