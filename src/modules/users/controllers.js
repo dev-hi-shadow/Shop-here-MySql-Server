@@ -1,40 +1,13 @@
 const Users = require("./model");
 const JWT = require("jsonwebtoken");
- const { Op } = require("sequelize");
+const { Op } = require("sequelize");
 const md5 = require("md5");
 
 const Register = async (req, res, next) => {
-  let { fullname, username, email, password, phone, role_id } = req.body;
-  if (!fullname || !username || !email || !password || !role_id) {
-    return res.status(400).json({
-      status: false,
-      message: "Please fill all the fields",
-    });
-  }
-  if (username || email || phone) {
-    const exists = await Users.findOne({
-      where: {
-        [Op.or]: [{ username }, { email }, { phone }],
-      },
-    });
-    if (exists) {
-      console.log(exists);
-      return res.status(400).json({
-        status: false,
-        message: "Username already exists , please enter a different username",
-        hint_message: "You can change your username after registration.",
-      });
-    }
-  }
-  if (password) {
-    password = await md5(password);
-  }
+  console.log("req.body", req.body);
   const user = await Users.create({
-    fullname,
-    email,
-    password,
-    phone,
-    role_id,
+    ...req.body,
+    password: md5(req.body.password),
   });
   if (!user) {
     return res.status(400).json({
@@ -43,24 +16,29 @@ const Register = async (req, res, next) => {
     });
   }
   user.token = JWT.sign(user.id, process.env.JWT_SECRET_KEY);
+  
   return res.status(200).json({
     success: true,
     status: 200,
     message: "Signup successfully",
-    data: user,
+    data: req.body,
   });
 };
 
 const login = async (req, res, next) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json({
-      status: false,
-      message: "Please fill all the fields",
-    });
-  }
+  const { credential, password } = req.body;
+
   let user = await Users.findOne({
-    where: { email },
+    where: {
+      [Op.or]: [
+        {
+          email: credential,
+        },
+        {
+          phone: credential,
+        },
+      ],
+    },
   });
   if (!user) {
     return res.status(400).json({
@@ -75,7 +53,7 @@ const login = async (req, res, next) => {
       message: "Invalid password",
     });
   }
-  let token = await JWT.sign(user.id, process.env.JWT_SECRET_KEY);
+  let token = JWT.sign(user.id, process.env.JWT_SECRET_KEY);
   return res.status(200).json({
     success: true,
     message: "Login successful",

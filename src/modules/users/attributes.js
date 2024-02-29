@@ -1,3 +1,3 @@
 module.exports = {
-  authAttributes: ["id", "name", "phone_no", "email", "role_id"],
+  authAttributes: ["id", "name", "phone", "email", "role_id"],
 };

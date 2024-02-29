@@ -5,8 +5,25 @@ class Users extends Model {}
 
 Users.init(
   {
-    name: {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true,
+    },
+    fullname: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
     },
     email: {
       type: DataTypes.STRING,
@@ -16,20 +33,17 @@ Users.init(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      min: 8,
-    },
-    phone: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
+      unique: true,
     },
     role_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        modelName: "roles",
+        model: "roles",
         key: "id",
       },
     },
+
   },
   {
     sequelize,

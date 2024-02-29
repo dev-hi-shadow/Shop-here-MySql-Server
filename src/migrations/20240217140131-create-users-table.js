@@ -19,8 +19,8 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      phone_no: {
-        type: Sequelize.INTEGER,
+      phone: {
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
@@ -28,6 +28,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
+      },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       role_id: {
         type: Sequelize.INTEGER,

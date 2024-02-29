@@ -60,3 +60,39 @@ exports.restrictTo = (...roles) => {
   }
   next();
 };
+
+exports.JoiValidator = (schema) => (req, res, next) => {
+  try {
+    const result = schema.validate(req.body, {
+      abortEarly: false,
+      errors: {
+        wrap: {
+          label: "",
+        },
+      },
+    });
+    if (result?.error?.details?.length) {
+      // deleteFile(req?.file);
+      return res.status(422).json({
+        status: false,
+        message: "Invalid data.",
+        errors: result?.error?.details?.map((obj) => ({
+          key:
+            typeof obj?.context?.key !== "string"
+              ? obj?.path[0]
+              : obj?.context?.key,
+          message: obj?.message,
+          ...(typeof obj?.context?.key !== "string"
+            ? {
+                index: obj?.context?.key,
+              }
+            : {}),
+        })),
+      });
+    }
+    next();
+  } catch (error) {
+    console.log("error", error);
+    next(error);
+  }
+};

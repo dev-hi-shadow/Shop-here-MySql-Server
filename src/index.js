@@ -24,7 +24,8 @@ app.set("view engine", "ejs");
 const cors = require("cors");
 app.use(
   cors({
-    origin: "*",
+    origin: "http://localhost:5173", // adjust this to match your front-end URL
+    credentials: true, // to allow cookies and credentials
   })
 );
 
