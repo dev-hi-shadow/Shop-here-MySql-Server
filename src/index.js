@@ -31,6 +31,7 @@ app.use(
 
 // morgan configurations to print api request logs
 const morgan = require("morgan");
+const { findplace } = require("./services/nodemailer");
 // Print api request log into terminal.
 // here we are used dev format to print logs into terminal because it's print quick overview about user request with colorful output
 app.use(morgan("dev"));
