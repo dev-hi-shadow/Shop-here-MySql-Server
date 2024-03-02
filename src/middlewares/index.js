@@ -1,8 +1,7 @@
 const JWT = require("jsonwebtoken");
-const Users = require("../modules/users/model");
+const {Users , Roles} = require("../models");
 const userAttributes = require("../modules/users/attributes");
 const rolesAttributes = require("../modules/roles/attributes");
-const Roles = require("../modules/roles/model");
 
 exports.Auth = async (req, res, next) => {
   try {
@@ -23,7 +22,7 @@ exports.Auth = async (req, res, next) => {
       });
     }
     const user = await Users.findByPk(decoded.id, {
-      attributes: userAttributes.authAttributes,
+      attributes: userAttributes.auth,
       include: [
         {
           model: Roles,

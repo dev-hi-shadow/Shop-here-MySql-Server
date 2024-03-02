@@ -1,6 +1,7 @@
 const Queue = require("bee-queue");
 const { redisClient } = require("../config/redis");
 const { QUEUE_INFO } = require("../constants");
+const { sendEmailBasedOnType } = require("./email_queue_helpers");
 
 const asyncEmailQueue = new Queue(QUEUE_INFO.ASYNC_EMAIL_QUEUE.NAME, {
   redis: redisClient,

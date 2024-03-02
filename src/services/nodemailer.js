@@ -16,26 +16,30 @@ exports.sendEmail = async (
   params = {},
   subject = "",
   from = "",
-  attachments = []
+  attachments = [],
+  ...rest
 ) => {
   try {
-    let UNSUBSCRIBE_URL = `${process.evn.FRONTEND_URL}/norifications/settings`;
+    let UNSUBSCRIBE_URL = `${process.env.FRONT_END_APP_URL}/norifications/settings`;
+    const YEAR = new Date().getFullYear();
     const html = await ejs.renderFile(
       path.join(__dirname, "..", "templates", template_name),
       {
         ...params,
         LANDING_PAGE_URL: process.env.LANDING_PAGE_URL,
-        APP_URL: process.env.APP_URL,
+        FRONT_END_APP_URL: process.env.FRONT_END_APP_URL,
         UNSUBSCRIBE_URL,
+        YEAR,
       }
     );
 
-    const transporter = nodemailer.createTransport({
-      hostname: process.env.EMAIL_SMTP_HOST,
-      port: process.env.EMAIL_SMTP_PORT,
+    let transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // true for 465, false for other ports
       auth: {
-        user: process.env.SHOP_HERE_EMAIL,
-        pass: process.env.SMTP_PASSWORD,
+        user: "ckdrametizzz@gmail.com", // your email
+        pass: "uitu yhcv oywg qwkd", // your email password
       },
     });
 

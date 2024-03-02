@@ -1,7 +1,17 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
+const Roles = require("../roles/model");
+const md5 = require("md5");
 
-class Users extends Model {}
+class Users extends Model {
+  static associate(db) {
+    Users.belongsTo(db.Roles, {
+      as: "role",
+      foreignKey: "role_id",
+      targetKey: "id",
+    });
+  }
+}
 
 Users.init(
   {
@@ -33,7 +43,9 @@ Users.init(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      set(value) {
+        this.setDataValue("password", md5(value));
+      },
     },
     role_id: {
       type: DataTypes.INTEGER,
@@ -43,7 +55,6 @@ Users.init(
         key: "id",
       },
     },
-
   },
   {
     sequelize,

@@ -1,5 +1,16 @@
+const { object } = require("joi");
 const Roles = require("../modules/roles/model");
+const Users = require("../modules/users/model");
 
-module.exports = {
+const db = {
   Roles,
+  Users,
 };
+
+Object.keys(db).forEach((modelName) => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
+module.exports = db;

@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/dev-hi-shadow/Shop-here-Backend-MySQL#readme",
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.9",
     "nodemon": "^3.0.3",
     "sequelize-cli": "^6.6.2"
   },
@@ -27,6 +30,7 @@
     "aws-sdk": "^2.1555.0",
     "axios": "^1.6.7",
     "bee": "^0.1.1",
+    "bee-queue": "^1.7.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.1",
     "ejs": "^3.1.9",

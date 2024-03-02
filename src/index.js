@@ -22,10 +22,21 @@ app.set("view engine", "ejs");
 
 // cors configurations
 const cors = require("cors");
+const allowedOrigins = [
+  "https://shop-here-admin.vercel.app",
+  "http://localhost:3000",
+]; // Example origins
+
 app.use(
   cors({
-    origin: "http://localhost:5173", // adjust this to match your front-end URL
-    credentials: true, // to allow cookies and credentials
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
   })
 );
 
