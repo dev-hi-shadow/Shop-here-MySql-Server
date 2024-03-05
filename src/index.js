@@ -24,7 +24,7 @@ app.set("view engine", "ejs");
 const cors = require("cors");
 const allowedOrigins = [
   "https://shop-here-admin.vercel.app",
-  "http://localhost:3000",
+  "http://localhost:5173",
 ]; // Example origins
 
 app.use(

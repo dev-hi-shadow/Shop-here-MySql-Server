@@ -7,6 +7,14 @@ const QUEUE_INFO = {
     NAME: "SHOP-HERE-GENERAL-QUEUE",
     LIMIT: 5,
   },
+  SMS_QUEUE: {
+    NAME: "SHOP-HERE-SMS-QUEUE",
+    LIMIT: 5,
+  },
+  NOTIFICATION_QUEUE: {
+    NAME: "SHOP-HERE-NOTIFICATION-QUEUE",
+    LIMIT: 5,
+  },
 };
 
 module.exports = {

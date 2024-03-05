@@ -9,7 +9,6 @@
 const ejs = require("ejs");
 const path = require("path");
 const nodemailer = require("nodemailer");
-const { hostname } = require("os");
 
 exports.sendEmail = async (
   template_name = "",

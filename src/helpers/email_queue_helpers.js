@@ -27,10 +27,10 @@ exports.sendToAdmins = async (
       required: true,
     },
   });
-   try {
+  try {
     for (let admin of admins) {
       admin = admin.toJSON();
-       await sendEmail(
+      await sendEmail(
         template_name,
         { ...params, user_data: admin },
         subject,

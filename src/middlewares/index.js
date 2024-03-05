@@ -1,11 +1,11 @@
 const JWT = require("jsonwebtoken");
-const {Users , Roles} = require("../models");
+const { Users, Roles } = require("../models");
 const userAttributes = require("../modules/users/attributes");
 const rolesAttributes = require("../modules/roles/attributes");
 
-exports.Auth = async (req, res, next) => {
+exports.verifyAuthToken = async (req, res, next) => {
   try {
-    const token = req.headers["Authorization"].split(" ")[1];
+    const token = req.headers["authorization"].split(" ")[1];
     if (!token) {
       res.status(401).json({
         success: false,
@@ -23,26 +23,29 @@ exports.Auth = async (req, res, next) => {
     }
     const user = await Users.findByPk(decoded.id, {
       attributes: userAttributes.auth,
-      include: [
-        {
-          model: Roles,
-          as: "role_id",
-          attributes: rolesAttributes.defaultAttributes,
-        },
-      ],
+      include: {
+        model: Roles,
+        as: "role",
+        attributes: rolesAttributes.default,
+      },
     });
 
     if (!user) {
       return res.status(401).json({
         success: false,
         status: 401,
-        message: "!Unauthorized , Access Denied",
+        message: "Unauthorized! , Access Denied",
       });
     }
+    req.user = user;
+    req.user_id = user.id;
+    req.isAdmin = ["SUPER_ADMIN", "ADMIN"].includes(user.role.name);
+    next();
   } catch (error) {
     return res.status(500).json({
       success: false,
       status: 500,
+      error: error.message,
       message: "Your session has been expired  , Please login again ",
     });
   }
@@ -91,7 +94,6 @@ exports.JoiValidator = (schema) => (req, res, next) => {
     }
     next();
   } catch (error) {
-    console.log("error", error);
     next(error);
   }
 };
