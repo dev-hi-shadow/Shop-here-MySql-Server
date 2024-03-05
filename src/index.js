@@ -12,6 +12,7 @@ const { sequelize } = require("./config/mysql");
 // Express App
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
 // Initialize Middlewares
 app.use(express.json()); // parse JSON data in request body
@@ -20,25 +21,13 @@ app.use(express.urlencoded({ extended: true })); // parse URL-encoded data in re
 // template engine configuration
 app.set("view engine", "ejs");
 
-// cors configurations
-const cors = require("cors");
-const allowedOrigins = [
-  "https://shop-here-admin.vercel.app",
-  "http://localhost:5173",
-]; // Example origins
+// all data as body parse to json format`
+app.use(bodyParser.json());
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
+// cors configurations
+var cors = require("cors"); //import cors module
+
+app.use(cors());
 
 // morgan configurations to print api request logs
 const morgan = require("morgan");

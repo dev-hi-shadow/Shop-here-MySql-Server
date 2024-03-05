@@ -14,7 +14,7 @@ exports.verifyAuthToken = async (req, res, next) => {
       });
     }
     const decoded = JWT.verify(token, process.env.JWT_SECRET_KEY);
-    if (!decoded.id) {
+     if (!decoded.id) {
       return res.status(401).json({
         success: false,
         status: 401,
