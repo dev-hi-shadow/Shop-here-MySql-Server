@@ -1,0 +1,120 @@
+Certainly! Below are brief descriptions for each of the customer alerts you've listed, providing context for when each alert might be used:
+
+1. Order Delayed Notification: Informs the customer when an order's shipment is delayed beyond the expected delivery date.
+2. Shipping Upgrade Offer: Proposes an option to upgrade the shipping method for faster delivery, potentially at an additional cost.
+3. Order Return Received: Confirms receipt of a returned product by the seller or warehouse.
+4. Return Status Update: Provides updates on the processing status of a return, including any actions required from the customer.
+5. Refund Issued: Notifies the customer when a refund has been processed for their order.
+6. Payment Method Expiry Reminder: Alerts customers when a saved payment method is nearing its expiration date, prompting an update to avoid transaction issues.
+7. Account Reactivation Offer: Sends a special offer or message encouraging inactive customers to reactivate their accounts.
+8. Membership Renewal Reminder: Reminds customers to renew their membership or subscription before it expires.
+9. Shipping Address Update Request: Requests confirmation or updates to the shipping address for an order.
+10. Product Review Reminder: Encourages customers to leave a review or feedback for a product they've purchased.
+11. Order Assembly Update: Updates on the assembly process for orders that involve multiple items or customization.
+12. Digital Product Access: Provides information or access codes for digital products or services purchased.
+13. Gift Card Expiry Reminder: Reminds customers to use their gift card before it expires.
+14. Appointment Confirmation/Reminder: Confirms an appointment (e.g., service, consultation) and/or sends a reminder as the date approaches.
+15. Change in Order Pickup Location: Informs of a change or confirmation of the location for picking up an order.
+16. Order Confirmation: Confirms that an order has been successfully placed.
+17. Payment Confirmation: Verifies that payment for an order has been successfully received.
+18. Order Shipped: Notifies that the order has been shipped, often including tracking details.
+19. Order Delivery: Confirms the successful delivery of an order.
+20. Cart Abandonment Reminders: Reminds customers of items left in their shopping cart, encouraging them to complete the purchase.
+21. Price Drop Alerts: Alerts customers to a price reduction on items they've shown interest in.
+22. Product Back in Stock: Notifies customers when a previously out-of-stock item is available again.
+23. Review Requests: Requests feedback or a review on a recently purchased item or service.
+24. Promotional Offers/Discounts: Informs of special promotions, offers, or discounts available.
+25. Loyalty Program Updates: Updates on loyalty program status, points, or rewards.
+26. Personalized Recommendations: Offers product recommendations based on the customer's shopping history or preferences.
+27. Birthday/Anniversary Discounts: Sends special discounts or offers in celebration of a customer's birthday or account anniversary.
+28. Limited Edition Product Launches: Announces the release of limited edition products or collections.
+29. Order Modification: Allows customers to modify their order before it's processed or shipped.
+30. Interactive Notifications: Engages customers with interactive content or choices within the notification.
+31. Restock Requests: Allows customers to request notifications for when specific items are restocked.
+32. Welcome Email/SMS: Welcomes new customers to the platform or service.
+33. Account Verification: Requests action to verify the customer's account or email address.
+34. Password Reset: Provides instructions for resetting a forgotten password.
+35. Subscription Confirmation: Confirms a new subscription or membership signup.
+36. Subscription Cancellation: Confirms the cancellation of a subscription or membership.
+37. Wishlist Item Availability: Alerts customers when an item on their wishlist becomes available.
+38. Exclusive Membership Offers: Offers exclusive deals or information to members of a subscription or loyalty program.
+39. Event Reminders: Reminds customers of upcoming events they've shown interest in or registered for.
+40. Survey Invitations: Invites customers to participate in surveys for feedback or market research.
+41. Account Deactivation Notice: Notifies customers of impending account deactivation due to inactivity or other reasons.
+42. Privacy Policy Updates: Informs of updates or changes to the privacy policy.
+43. Terms of Service Changes: Notifies customers of changes to the terms of service.
+44. Security Alert: Alerts customers to potential security concerns or breaches affecting their account.
+45. Feedback Acknowledgement: Thanks customers for providing feedback or reviews.
+
+
+Admin Alerts :
+
+1. User Registration Report: Summarizes new user registrations, helping to track growth and engagement.
+2. Daily Sales Summary: Provides a summary of daily sales activity, including revenue and number of transactions.
+3. Weekly Performance Overview: Offers insights into weekly business performance across various metrics.
+4. Monthly Profit Analysis: Analyzes monthly profits, highlighting areas of strength and opportunities for improvement.
+5. Annual Revenue Report: Summarizes yearly revenue, facilitating year-over-year comparisons and strategic planning.
+6. Marketing Campaign Performance: Evaluates the effectiveness of marketing campaigns, including metrics like engagement, conversion rates, and ROI.
+7. User Activity Insights: Provides insights into user behavior, including popular products, services, and usage patterns.
+8. Platform Usage Stats: Summarizes how users interact with the platform, identifying trends and areas for improvement.
+9. Inventory Level Summary: Reports on current inventory levels, identifying items that are low in stock or in surplus.
+10. Supplier Contract Renewal Reminder: Reminds of upcoming supplier contract renewals to ensure uninterrupted supply and maintain relationships.
+11. Technology Upgrade Alert: Notifies of impending technology upgrades, ensuring the team is prepared for changes and potential downtimes.
+12. Compliance Audit Notification: Alerts when a compliance audit is due or has been initiated, ensuring regulatory requirements are met.
+13. Dispute Resolution Updates: Provides updates on the resolution of disputes, whether with customers, suppliers, or partners.
+14. Fraud Investigation Results: Shares the outcomes of fraud investigations, including actions taken or recommended.
+15. New Order Alerts: Notifies when new orders are placed, helping to monitor sales activity in real-time.
+16. Low Stock Warnings: Warns when stock levels for specific items are low, prompting restocking to avoid stockouts.
+17. High Volume Traffic Alerts: Alerts to spikes in website or platform traffic, which could indicate increased interest or potential system stress.
+18. Payment Failures: Reports on failed transactions, helping to identify and address issues with payment processing.
+19. Seller Account Requests: Notifies of new seller account sign-up requests, for platforms supporting multiple vendors.
+20. Customer Feedback: Summarizes feedback from customers, providing insights into customer satisfaction and areas for improvement.
+21. System Errors or Downtimes: Alerts to system errors or downtimes, facilitating rapid response and communication with users.
+22. Customer Service Metrics: Provides metrics on customer service performance, including response times and resolution rates.
+23. Fraud Alerts: Warns of suspected fraudulent activity, enabling proactive measures to prevent losses.
+24. Performance Reports: Summarizes overall business performance across various metrics and departments.
+25. Regulatory Compliance Alerts: Alerts to changes in regulations or compliance status, ensuring the business remains within legal guidelines.
+26. Feedback and Review Summary: Compiles feedback and reviews from customers, providing a comprehensive view of public perception.
+27. Market Trends Notifications: Informs of emerging market trends, helping the business to adapt strategies and remain competitive.
+28. Stripe Account Setup Reminder:Reminds sellers to set up or link their Stripe account to enable seamless transaction processing.
+29. Stripe Low Balance Reminder:Notifies sellers when their Stripe account balance is low, potentially affecting their ability to process refunds or cover chargeback fees.
+30. Stripe Payout Notification: Informs sellers when a payout from their Stripe account to their bank account has been initiated or completed.
+31. Stripe Account Verification Alert:Alerts sellers when additional information is needed to verify their Stripe account, ensuring they remain in good standing and can continue processing payments.
+32. Stripe Dispute Notification:Notifies sellers immediately when a dispute is filed against them, allowing for prompt action to resolve the issue.
+33. Stripe Chargeback Alert: Informs sellers of chargebacks, prompting them to take necessary actions, such as submitting evidence to dispute the chargeback.
+34. Stripe Compliance Update: Keeps sellers informed about any changes in compliance requirements or regulations related to their Stripe account to ensure ongoing compliance.
+35. Stripe API Update Notification: Notifies platform administrators about updates to the Stripe API that may require attention or action to ensure seamless integration.
+36. Failed Payment Alert: Alerts sellers about failed payments, helping them to quickly address any issues with their Stripe account or customer transactions.
+
+
+
+
+Seller Notifications
+1. Listing Optimization Suggestions: Advice on how to improve your product listings to potentially increase visibility and sales.
+2. Monthly Seller Statement: A summary of your selling activity, including sales, returns, and fees, for the past month.
+3. Holiday Sales Preparation Guide: Tips and strategies for maximizing sales during holiday seasons.
+4. Shipping Label Expiry Reminder: Notification that a previously purchased shipping label is about to expire and has not been used.
+5. Return Processing Alert: A reminder or notice regarding the need to process returns from customers.
+6. Account Health Status: Updates on the overall health of your seller account, including compliance with selling policies.
+7. Policy Violation Warning: A warning that you may have violated one or more of the platform's selling policies.
+8. Seller Forum Highlights: Summaries or highlights of important discussions, advice, and updates from the seller community forum.
+9. Bulk Listing Processing Completion: Notification that a bulk listing operation (such as uploads or updates) you initiated has been completed.
+10. Catalog Update Required: Alert that some products in your catalog need updating, possibly due to missing information or policy changes.
+11. Brand Violation Alert: Warning of potential infringement on another's brand rights, requiring your attention.
+12. Seller Performance Award: Recognition of outstanding selling performance, often based on metrics like customer feedback and sales volume.
+13. Product Recall Notice: Notification that a product you are selling has been recalled by the manufacturer or regulatory bodies.
+14. Export Opportunity Alert: Information on opportunities to expand sales by exporting products to new markets.
+15. New Order Notifications: Alerts when you receive new orders through the platform.
+16. Inventory Alerts: Notifications related to your inventory levels, such as low stock warnings.
+17. Order Fulfillment Reminders: Reminders to fulfill orders by the promised shipping date to maintain good account health.
+18. Payment Receipts: Confirmation of payments made to you by the platform for your sales.
+19. Customer Questions: Notifications when a customer has posted a question on one of your product listings.
+20. Product Listing Approval/Rejection: Notification of whether a new product listing has been approved or rejected by the platform.
+21. Review Alerts: Alerts when customers leave reviews on your products, allowing you to monitor feedback.
+22. Promotional Opportunities: Information on special promotions or programs you can participate in to boost sales.
+23. Performance Insights: Analysis and insights into your selling performance, with suggestions for improvement.
+24. Competitive Analysis: Information and analysis of your competition on the platform, potentially including pricing, sales, and performance metrics.
+25. Policy Changes: Updates on any changes to the platform's selling policies that may affect your listings or account.
+26. Seller Community Updates: News and updates relevant to the seller community, including events, meetups, and webinars.
+27. Feature Updates: Information on new or updated features on the selling platform that could benefit your business.
+28. Seasonal Selling Tips: Advice on adjusting your selling strategies to capitalize on seasonal trends and holidays.
