@@ -3,29 +3,34 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("categories", {
+    await queryInterface.createTable("sms_history", {
       id: {
         type: Sequelize.INTEGER,
-        primaryKey: true,
-        allowNull: false,
         autoIncrement: true,
+        primaryKey: true,
       },
-      name: {
+      body: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      description: {
+      dateSent: { type: Sequelize.DATE, allowNull: true },
+      dateCreated: { type: Sequelize.DATE, allowNull: false },
+      to: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      is_published: {
-        type: Sequelize.BOOLEAN,
+      sid: {
+        type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: false,
+        unique: true,
       },
-      published_at: {
-        type: Sequelize.DATE,
+      order_id: {
+        type: Sequelize.INTEGER,
         allowNull: true,
+        references: {
+          model: "orders",
+          key: "id",
+        },
       },
       created_by: {
         type: Sequelize.INTEGER,
@@ -66,6 +71,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("categories");
+    await queryInterface.dropTable("sms_history");
   },
 };

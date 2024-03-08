@@ -469,6 +469,30 @@ module.exports = {
       deleted_at: {
         type: Sequelize.DATE,
       },
+      created_by: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+      updated_by: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+      deleted_by: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
     });
   },
 
