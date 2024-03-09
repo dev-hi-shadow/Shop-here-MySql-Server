@@ -4,7 +4,7 @@ const { defaultAttributes } = require("./attributes");
 
 exports.CreateCategory = async (req, res, next) => {
   try {
-    const exists = await Categories.create({
+    const category = await Categories.create({
       created_by: req.user_id,
       ...req.body,
     });
@@ -12,7 +12,7 @@ exports.CreateCategory = async (req, res, next) => {
       status: 201,
       success: true,
       message: "Category Created successfully",
-      data: exists,
+      data: category,
     });
   } catch (error) {
     next(error);
@@ -37,9 +37,14 @@ exports.getCategories = async (req, res, next) => {
 
 exports.updateCategory = async (req, res, next) => {
   try {
-    const category = await Categories.update(req.body, {
-      where: { id: req.params.id },
-    });
+    if (req.body.is_published === false) req.body.published_at = null;
+    if (req.body.is_published === true) req.body.published_at = new Date();
+    const category = await Categories.update(
+      { ...req.body, updated_by: req.user_id },
+      {
+        where: { id: req.params.id },
+      }
+    );
     res.status(200).json({
       status: 200,
       success: true,

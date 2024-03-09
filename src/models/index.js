@@ -8,6 +8,11 @@ const {
   CustomerNotify,
   SellerNotify,
 } = require("../modules/notify/model");
+const Addresses = require("../modules/addresses/model");
+const Attributes = require("../modules/attributes/model");
+const Brands = require("../modules/brand/model");
+const Taxes = require("../modules/taxes/model");
+const Units = require("../modules/units/model");
 
 const db = {
   Roles,
@@ -17,6 +22,12 @@ const db = {
   AdminNotify,
   SellerNotify,
   CustomerNotify,
+  Addresses,
+  Attributes,
+  Brands,
+  Taxes,
+  Units,
+  SubCategories,
 };
 
 Object.keys(db).forEach((modelName) => {

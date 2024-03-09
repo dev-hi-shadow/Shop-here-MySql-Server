@@ -7,6 +7,19 @@ class Categories extends Model {
       foreignKey: "created_by",
       sourceKey: "id",
     });
+    Categories.hasMany(db.SubCategories, {
+      as: "subcategories",
+      foreignKey: "subcategory_id",
+      sourceKey: "id",
+    });
+    Categories.belongsTo(db.Users, {
+      foreignKey: "updated_by",
+      sourceKey: "id",
+    });
+    Categories.belongsTo(db.Users, {
+      foreignKey: "deleted_by",
+      sourceKey: "id",
+    });
   }
 }
 Categories.init(
@@ -25,6 +38,10 @@ Categories.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     is_published: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -36,7 +53,23 @@ Categories.init(
     },
     created_by: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
+      references: {
+        model: "users",
+        key: "id",
+      },
+    },
+    updated_by: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: "users",
+        key: "id",
+      },
+    },
+    deleted_by: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "users",
         key: "id",

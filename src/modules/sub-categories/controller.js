@@ -4,14 +4,15 @@ const { defaultAttributes } = require("./attributes");
 
 exports.CreateSubCategory = async (req, res, next) => {
   try {
-    const exists = await SubCategories.create({
+    const subcategory = await SubCategories.create({
       created_by: req.user_id,
       ...req.body,
     });
     res.status(201).json({
-      status: true,
-      message: "SubCategory Created successfully",
-      data: exists,
+      status: 201,
+      success: true,
+      message: "Sub Category Created successfully",
+      data: subcategory,
     });
   } catch (error) {
     next(error);
@@ -36,8 +37,10 @@ exports.getSubCategories = async (req, res, next) => {
 
 exports.updateSubCategory = async (req, res, next) => {
   try {
+    if (req.body.verified === true) req.body.published_at = new Date();
+    if (req.body.is_published === false) req.body.published_at = null;
     const category = await SubCategories.update(
-      { ...req.body },
+      { ...req.body, updated_by: req.user_id },
       {
         where: req.params.id,
       }
@@ -61,7 +64,7 @@ exports.deleteSubCategory = async (req, res, next) => {
     res.status(200).json({
       status: 200,
       success: true,
-      message: "SubCategory Deleted successfully",
+      message: "Sub Category Deleted successfully",
       data: category,
     });
   } catch (error) {

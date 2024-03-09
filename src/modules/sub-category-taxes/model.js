@@ -1,29 +1,29 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
 
-class SubCategories extends Model {
+class SubCategoryTaxes extends Model {
   static associate(db) {
-    SubCategories.belongsTo(db.Users, {
+    SubCategoryTaxes.belongsTo(db.Users, {
       foreignKey: "updated_by",
       sourceKey: "id",
     });
-    SubCategories.belongsTo(db.Users, {
+    SubCategoryTaxes.belongsTo(db.Users, {
       foreignKey: "deleted_by",
       sourceKey: "id",
     });
-    SubCategories.belongsTo(db.Categories, {
-      as: "category",
-      foreignKey: "category_id",
+    SubCategoryTaxes.belongsTo(db.Users, {
+      as: "creator",
+      foreignKey: "created_by",
       targetKey: "id",
-    }),
-      SubCategories.belongsTo(db.Users, {
-        as: "creator",
-        foreignKey: "created_by",
-        targetKey: "id",
-      });
+    });
+    SubCategoryTaxes.belongsTo(db.Taxes, {
+      as: "tax",
+      foreignKey: "tax_id",
+      targetKey: "id",
+    });
   }
 }
-SubCategories.init(
+SubCategoryTaxes.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -87,8 +87,8 @@ SubCategories.init(
 
   {
     sequelize,
-    tableName: "sub_categories",
-    modelName: "SubCategories",
+    tableName: "sub_category_taxes",
+    modelName: "SubCategoryTaxes",
   }
 );
-module.exports = SubCategories;
+module.exports = SubCategoryTaxes;

@@ -1,23 +1,27 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
+const Roles = require("../roles/model");
+const md5 = require("md5");
 
-class Brands extends Model {
+class Taxes extends Model {
   static associate(db) {
-    Brands.belongsTo(db.Users, {
+    Taxes.belongsTo(db.Users, {
       foreignKey: "created_by",
       sourceKey: "id",
     });
-    Brands.belongsTo(db.Users, {
-      foreignKey: "updated_by",
-      sourceKey: "id",
-    });
-    Brands.belongsTo(db.Users, {
+    Taxes.belongsTo(db.Users, {
       foreignKey: "deleted_by",
       sourceKey: "id",
     });
+    Taxes.belongsTo(db.Users, {
+      foreignKey: "updated_by",
+      sourceKey: "id",
+    });
+    
   }
 }
-Brands.init(
+
+Taxes.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -29,30 +33,6 @@ Brands.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-    },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    image: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    verified: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    verified_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    is_published: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    published_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
     },
     created_by: {
       type: DataTypes.INTEGER,
@@ -81,9 +61,9 @@ Brands.init(
   },
   {
     sequelize,
-    tableName: "brands",
-    modelName: "Brands",
+    tableName: "taxes",
+    modelName: "Taxes",
   }
 );
 
-module.exports = Brands;
+module.exports = Taxes;

@@ -1,29 +1,26 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
+const Roles = require("../roles/model");
+const md5 = require("md5");
 
-class SubCategories extends Model {
+class Addresses extends Model {
   static associate(db) {
-    SubCategories.belongsTo(db.Users, {
+    Addresses.belongsTo(db.Users, {
+      foreignKey: "created_by",
+      sourceKey: "id",
+    });
+    Addresses.belongsTo(db.Users, {
       foreignKey: "updated_by",
       sourceKey: "id",
     });
-    SubCategories.belongsTo(db.Users, {
+    Addresses.belongsTo(db.Users, {
       foreignKey: "deleted_by",
       sourceKey: "id",
     });
-    SubCategories.belongsTo(db.Categories, {
-      as: "category",
-      foreignKey: "category_id",
-      targetKey: "id",
-    }),
-      SubCategories.belongsTo(db.Users, {
-        as: "creator",
-        foreignKey: "created_by",
-        targetKey: "id",
-      });
   }
 }
-SubCategories.init(
+
+Addresses.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -31,33 +28,42 @@ SubCategories.init(
       allowNull: false,
       autoIncrement: true,
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    is_published: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    published_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    image: {
-      type: DataTypes.STRING,
-    },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    category_id: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "categories",
+        model: "users",
         key: "id",
       },
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    landmark: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    country: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    postal_code: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    is_primary: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
     created_by: {
       type: DataTypes.INTEGER,
@@ -84,11 +90,11 @@ SubCategories.init(
       },
     },
   },
-
   {
     sequelize,
-    tableName: "sub_categories",
-    modelName: "SubCategories",
+    tableName: "addresses",
+    modelName: "Addresses",
   }
 );
-module.exports = SubCategories;
+
+module.exports = Addresses;

@@ -5,15 +5,29 @@ const md5 = require("md5");
 
 class Users extends Model {
   static associate(db) {
+    Users.belongsTo(db.Users, {
+      foreignKey: "created_by",
+      sourceKey: "id",
+    });
+    Users.belongsTo(db.Users, {
+      foreignKey: "updated_by",
+      sourceKey: "id",
+    });
+    Users.belongsTo(db.Users, {
+      foreignKey: "deleted_by",
+      sourceKey: "id",
+    });
     Users.belongsTo(db.Roles, {
       as: "role",
       foreignKey: "role_id",
       targetKey: "id",
     });
-    Users.belongsTo(db.Addresses, {
-      as: "addresses",
-      foreignKey: "address_id",
-      targetKey: "id",
+    Users.hasMany(db.Addresses, {
+      as: "user_addresses",
+      foreignKey: "user_id",
+      sourceKey: "id",
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     });
   }
 }
@@ -46,7 +60,7 @@ Users.init(
     },
     last_name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     phone: {
       type: DataTypes.INTEGER,
@@ -59,7 +73,7 @@ Users.init(
     },
     address_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "addresses",
         key: "id",

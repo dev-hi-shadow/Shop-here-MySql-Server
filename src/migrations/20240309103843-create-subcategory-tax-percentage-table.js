@@ -3,77 +3,36 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("users", {
+    await queryInterface.createTable("sub_category_tax", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      username: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      first_name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      last_name: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      phone: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        unique: true,
-      },
-      date_of_birth: {
-        type: Sequelize.DATE,
-        allowNull: false,
-      },
-      account_status: {
-        type: Sequelize.ENUM("verified", "unverified", "blacklisted"),
-        allowNull: false,
-        defaultValue: "unverified",
-      },
-      role_id: {
+      sub_category_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "roles",
+          model: "sub_categories",
           key: "id",
         },
       },
-      profile_picture: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      preferred_currency: {
-        type: Sequelize.STRING,
+      tax_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: "USD",
+        references: {
+          model: "taxes",
+          key: "id",
+        },
+      },
+      percentage: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
       },
       created_by: {
         type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: "users",
-          key: "id",
-        },
-      },
-      updated_by: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: "users",
           key: "id",
@@ -81,7 +40,15 @@ module.exports = {
       },
       deleted_by: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+      updated_by: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: "users",
           key: "id",
@@ -102,6 +69,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("sub_category_tax");
   },
 };

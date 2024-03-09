@@ -15,10 +15,6 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      percentage: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
-      },
       created_by: {
         type: Sequelize.INTEGER,
         allowNull: false,
