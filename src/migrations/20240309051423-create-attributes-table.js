@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("categories", {
+    await queryInterface.createTable("attributes", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -14,34 +14,17 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      description: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      image: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      is_published: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      published_at: {
-        type: Sequelize.DATE,
-        allowNull: true,
-      },
-      created_by: {
+      attribute_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
-          model: "users",
+          model: "attributes",
           key: "id",
         },
       },
-      updated_by: {
+      created_by: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: "users",
           key: "id",
@@ -49,7 +32,15 @@ module.exports = {
       },
       deleted_by: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+      updated_by: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: "users",
           key: "id",
@@ -70,6 +61,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("categories");
+    await queryInterface.dropTable("attributes");
   },
 };

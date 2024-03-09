@@ -3,45 +3,54 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("categories", {
+    await queryInterface.createTable("addresses", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      description: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      image: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      is_published: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      published_at: {
-        type: Sequelize.DATE,
-        allowNull: true,
-      },
-      created_by: {
+      user_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
+        unique: true,
         references: {
           model: "users",
           key: "id",
         },
       },
-      updated_by: {
-        type: Sequelize.INTEGER,
+      address: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      landmark: {
+        type: Sequelize.STRING,
         allowNull: true,
+      },
+      city: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      state: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      country: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      postal_code: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      is_primary: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      created_by: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: "users",
           key: "id",
@@ -49,7 +58,15 @@ module.exports = {
       },
       deleted_by: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+      updated_by: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: "users",
           key: "id",
@@ -70,6 +87,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("categories");
+    await queryInterface.dropTable("addresses");
   },
 };

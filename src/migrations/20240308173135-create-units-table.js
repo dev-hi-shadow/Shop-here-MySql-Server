@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("brand", {
+    await queryInterface.createTable("units", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -15,18 +15,28 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      is_published: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
-      published_at: {
-        type: Sequelize.DATE,
-        allowNull: true,
-      },
-      image: {
+      short_form: {
         type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
       },
-      created_by : {
+      created_by: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+      deleted_by: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+      updated_by: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -49,6 +59,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("brand");
+    await queryInterface.dropTable("units");
   },
 };

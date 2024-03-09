@@ -10,16 +10,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
       },
-      fullname: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       username: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      phone: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
@@ -33,6 +24,36 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      first_name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      last_name: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      phone: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true,
+      },
+      date_of_birth: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      // address_id: {
+      //   type: Sequelize.INTEGER,
+      //   allowNull: true,
+      //   references: {
+      //     model: "addresses",
+      //     key: "id",
+      //   },
+      // },
+      account_status: {
+        type: Sequelize.ENUM("verified", "unverified", "blacklisted"),
+        allowNull: false,
+        defaultValue: "unverified",
+      },
       role_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -40,6 +61,15 @@ module.exports = {
           model: "roles",
           key: "id",
         },
+      },
+      profile_picture: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      preferred_currency: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: "USD",
       },
       created_by: {
         type: Sequelize.INTEGER,
