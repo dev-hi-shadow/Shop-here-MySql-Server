@@ -5,6 +5,7 @@ exports.CreateBrand = async (req, res, next) => {
   try {
     const brand = await Brands.create({
       ...req.body,
+      updated_by: req.user_id,
       created_by: req.user_id,
     });
     res.status(201).json({

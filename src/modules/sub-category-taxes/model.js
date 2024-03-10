@@ -1,29 +1,29 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
 
-class SubCategoryTaxes extends Model {
+class SubCategoryTax extends Model {
   static associate(db) {
-    SubCategoryTaxes.belongsTo(db.Users, {
+    SubCategoryTax.belongsTo(db.Users, {
       foreignKey: "updated_by",
       sourceKey: "id",
     });
-    SubCategoryTaxes.belongsTo(db.Users, {
+    SubCategoryTax.belongsTo(db.Users, {
       foreignKey: "deleted_by",
       sourceKey: "id",
     });
-    SubCategoryTaxes.belongsTo(db.Users, {
+    SubCategoryTax.belongsTo(db.Users, {
       as: "creator",
       foreignKey: "created_by",
       targetKey: "id",
     });
-    SubCategoryTaxes.belongsTo(db.Taxes, {
+    SubCategoryTax.belongsTo(db.Taxes, {
       as: "tax",
       foreignKey: "tax_id",
       targetKey: "id",
     });
   }
 }
-SubCategoryTaxes.init(
+SubCategoryTax.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -31,33 +31,26 @@ SubCategoryTaxes.init(
       allowNull: false,
       autoIncrement: true,
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    is_published: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    published_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    image: {
-      type: DataTypes.STRING,
-    },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    category_id: {
+
+    sub_category_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "categories",
+        model: "sub_categories",
         key: "id",
       },
+    },
+    tax_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "taxes",
+        key: "id",
+      },
+    },
+    percentage: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
     },
     created_by: {
       type: DataTypes.INTEGER,
@@ -69,7 +62,7 @@ SubCategoryTaxes.init(
     },
     deleted_by: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "users",
         key: "id",
@@ -87,8 +80,8 @@ SubCategoryTaxes.init(
 
   {
     sequelize,
-    tableName: "sub_category_taxes",
-    modelName: "SubCategoryTaxes",
+    tableName: "sub_category_tax",
+    modelName: "SubCategoryTax",
   }
 );
-module.exports = SubCategoryTaxes;
+module.exports = SubCategoryTax;

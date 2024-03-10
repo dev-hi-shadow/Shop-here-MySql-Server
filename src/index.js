@@ -27,7 +27,12 @@ app.use(bodyParser.json());
 // cors configurations
 var cors = require("cors"); //import cors module
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow this origin to make requests
+    credentials: true, // Allow cookies/session to be sent from the requesting client
+  })
+);
 
 // morgan configurations to print api request logs
 const morgan = require("morgan");

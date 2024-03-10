@@ -2,8 +2,8 @@ const Joi = require("joi");
 
 module.exports = {
   createCategoryJoiValidation: Joi.object().keys({
-    name: Joi.string().required(),
-    description: Joi.string(),
+    name: Joi.string().required().label("Name"),
+    description: Joi.string().optional().label("Description"),
   }),
 
   updateCategoryJoiValidation: Joi.object().keys({

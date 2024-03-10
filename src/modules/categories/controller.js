@@ -5,8 +5,9 @@ const { defaultAttributes } = require("./attributes");
 exports.CreateCategory = async (req, res, next) => {
   try {
     const category = await Categories.create({
-      created_by: req.user_id,
       ...req.body,
+      updated_by : req.user_id , 
+      created_by: req.user_id,
     });
     res.status(201).json({
       status: 201,

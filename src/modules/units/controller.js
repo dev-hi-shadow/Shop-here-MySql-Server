@@ -5,6 +5,7 @@ exports.CreateUnit = async (req, res, next) => {
   try {
     const unit = await Units.create({
       ...req.body,
+      updated_by: req.user_id,
       created_by: req.user_id,
     });
     res.status(201).json({

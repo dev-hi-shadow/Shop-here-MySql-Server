@@ -1,12 +1,13 @@
-const { SubCategories } = require("../../models");
+const { SubCategories, Categories } = require("../../models");
 const { Op } = require("sequelize");
 const { defaultAttributes } = require("./attributes");
 
 exports.CreateSubCategory = async (req, res, next) => {
   try {
     const subcategory = await SubCategories.create({
-      created_by: req.user_id,
       ...req.body,
+      updated_by: req.user_id,
+      created_by: req.user_id,
     });
     res.status(201).json({
       status: 201,
@@ -23,6 +24,12 @@ exports.getSubCategories = async (req, res, next) => {
   try {
     const categories = await SubCategories.findAll({
       attributes: defaultAttributes,
+      include: [
+        {
+          model: Categories,
+          as: "category",
+        },
+      ],
     });
     res.status(200).json({
       status: 200,

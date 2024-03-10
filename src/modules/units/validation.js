@@ -9,5 +9,4 @@ module.exports = {
     name: Joi.string().optional().label("Name"),
     short_form: Joi.string().optional().label("Short Name"),
   }),
-  v,
-};
+ };

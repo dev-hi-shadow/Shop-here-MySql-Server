@@ -13,6 +13,7 @@ const Attributes = require("../modules/attributes/model");
 const Brands = require("../modules/brand/model");
 const Taxes = require("../modules/taxes/model");
 const Units = require("../modules/units/model");
+const SubCategoryTax = require("../modules/sub-category-taxes/model");
 
 const db = {
   Roles,
@@ -28,6 +29,7 @@ const db = {
   Taxes,
   Units,
   SubCategories,
+  SubCategoryTax,
 };
 
 Object.keys(db).forEach((modelName) => {

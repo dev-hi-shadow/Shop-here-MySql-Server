@@ -1,14 +1,25 @@
-const { Users, SMSHISTORY } = require("../../models");
+const { Users, SMSHISTORY, Addresses } = require("../../models");
 const JWT = require("jsonwebtoken");
 const { Op } = require("sequelize");
 const md5 = require("md5");
 const RoleAttributes = require("../roles/attributes");
 const Roles = require("../roles/model");
 const { asyncEmailQueue, asyncSMSQueue } = require("../../helpers/Queue");
+const { auth } = require("./attributes");
 
 const Register = async (req, res, next) => {
+  const { address, city, state, country, postal_code, is_primary, ...rest } =
+    req.body;
+   const Role = await Roles.findOne({
+    where: {
+      name: "CUSTOMER",
+    },
+  });
   const user = await Users.create({
-    ...req.body,
+    ...rest,
+    created_by: req.user_id,
+    updated_by: req.user_id,
+    role_id: Role.id,
   });
   if (!user) {
     return res.status(400).json({
@@ -16,33 +27,50 @@ const Register = async (req, res, next) => {
       message: "Something went wrong! Please try after sometime.",
     });
   }
+  let new_address = await Addresses.create({
+    address,
+    city,
+    state,
+    country,
+    postal_code,
+    is_primary,
+    created_by: req.user_id || user.id,
+    updated_by: req.user_id || user.id,
+    user_id: user.id,
+  });
+
   let role = await Roles.findByPk(user.role_id, {
     attributes: RoleAttributes.default,
   });
 
-  if (!role || role.toJSON().name === "SELLER") {
-    asyncEmailQueue
-      .createJob({
-        type: "NEW_SELLER_REGISTERED",
-        data: user,
-      })
-      .retries(3)
-      .save();
-    // asyncSMSQueue
-    //   .createJob({
-    //     type: "NEW_SELLER_REGISTERED",
-    //     data: user,
-    //   })
-    //   .retries(3)
-    //   .save();
-  }
-  user.token = JWT.sign(user.id, process.env.JWT_SECRET_KEY);
+  // if (!role || role.toJSON().name === "SELLER") {
+  //   asyncEmailQueue
+  //     .createJob({
+  //       type: "NEW_SELLER_REGISTERED",
+  //       data: user,
+  //     })
+  //     .retries(3)
+  //     .save();
+  // asyncSMSQueue
+  //   .createJob({
+  //     type: "NEW_SELLER_REGISTERED",
+  //     data: user,
+  //   })
+  //   .retries(3)
+  //   .save();
+  // }
+  user = user.toJSON();
+  new_address = new_address.toJSON();
+  user.token = JWT.sign({ id: user.id }, process.env.JWT_SECRET_KEY);
 
   return res.status(200).json({
     success: true,
     status: 200,
     message: "Signup successfully",
-    data: req.body,
+    data: {
+      ...user,
+      ...new_address,
+    },
   });
 };
 
@@ -67,7 +95,8 @@ const login = async (req, res, next) => {
         message: "Invalid email ",
       });
     }
-    const isMatch = md5(password) === user.password;
+    console.log(md5(password) , user.getDataValue("password"));
+    const isMatch = md5(password) === user.getDataValue("password");
     if (!isMatch) {
       return res.status(400).json({
         status: false,

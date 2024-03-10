@@ -2,15 +2,22 @@ const Joi = require("joi");
 
 module.exports = {
   RegisterJoiSchema: Joi.object().keys({
-    fullname: Joi.string().required().label("fullname"),
+    address: Joi.string().required().label("Address"),
+    city: Joi.string().required().label("City"),
+    state: Joi.string().required().label("State"),
+    country: Joi.string().required().label("Country"),
+    is_primary: Joi.boolean().required().label("Is Primary"),
+    postal_code: Joi.number().required().label("Postal Code"),
+    first_name: Joi.string().required().label("First Name"),
+    last_name: Joi.string().optional().label("Last Name"),
+    phone: Joi.number().required().label("phone"),
+    date_of_birth: Joi.date().required().label("Date Of Birth"),
     email: Joi.string().email().required().label("email"),
     password: Joi.string().min(8).required().label("password"),
     confirm_password: Joi.string()
       .required()
       .valid(Joi.ref("password"))
       .label("confirm_password"),
-    phone: Joi.number().required().label("phone"),
-    role_id: Joi.number().required().label("role_id"),
     username: Joi.string().required().label("username"),
   }),
 

@@ -53,6 +53,9 @@ Users.init(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+      set(data) {
+        return md5(data);
+      },
     },
     first_name: {
       type: DataTypes.STRING,
@@ -70,14 +73,6 @@ Users.init(
     date_of_birth: {
       type: DataTypes.DATE,
       allowNull: false,
-    },
-    address_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: "addresses",
-        key: "id",
-      },
     },
     account_status: {
       type: DataTypes.ENUM("verified", "unverified", "blacklisted"),

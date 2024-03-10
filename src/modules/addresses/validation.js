@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 module.exports = {
   CreateAddressJoiValidation: Joi.object().keys({
-    user_id: Joi.number().required().label("User Id"),
+    user_id: Joi.number().optional().label("User Id"),
     address: Joi.string().required().label("Address"),
     city: Joi.string().required().label("City"),
     state: Joi.string().required().label("State"),

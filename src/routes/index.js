@@ -10,5 +10,10 @@ router.use("/categories", require("../modules/categories"));
 router.use("/sub-categories", require("../modules/sub-categories/"));
 router.use("/users", require("../modules/users/"));
 router.use("/alerts", require("../modules/notify"));
-
+router.use("/brands", require("../modules/brand"));
+router.use("/addresses", require("../modules/addresses"));
+router.use("/attributes", require("../modules/attributes"));
+router.use("/taxes", require("../modules/taxes"));
+router.use("/units", require("../modules/units"));
+router.use("/sub-categories-taxes", require("../modules/sub-category-taxes"));
 module.exports = router;

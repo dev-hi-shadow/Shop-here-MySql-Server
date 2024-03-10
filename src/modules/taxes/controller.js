@@ -5,6 +5,7 @@ exports.CreateTax = async (req, res, next) => {
   try {
     const tax = await Taxes.create({
       ...req.body,
+      updated_by: req.user_id,
       created_by: req.user_id,
     });
     res.status(201).json({

@@ -17,7 +17,6 @@ class Taxes extends Model {
       foreignKey: "updated_by",
       sourceKey: "id",
     });
-    
   }
 }
 
@@ -44,7 +43,7 @@ Taxes.init(
     },
     deleted_by: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: "users",
         key: "id",

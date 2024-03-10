@@ -7,14 +7,14 @@ exports.verifyAuthToken = async (req, res, next) => {
   try {
     const token = req.headers["authorization"].split(" ")[1];
     if (!token) {
-      res.status(401).json({
+      return res.status(401).json({
         success: false,
         status: 401,
         message: "Please enter a token",
       });
     }
     const decoded = JWT.verify(token, process.env.JWT_SECRET_KEY);
-     if (!decoded.id) {
+    if (!decoded.id) {
       return res.status(401).json({
         success: false,
         status: 401,
