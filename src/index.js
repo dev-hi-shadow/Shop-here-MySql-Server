@@ -59,11 +59,13 @@ app.use(require("./routes/index"));
 
 // common middleware to handle all errors
 app.use((err, req, res, next) => {
-  console.log("errorHandler Error", err);
-  res.status(err?.statusCode || 500).json({
-    status: false,
-    message: err?.message || `Something went wrong! Please try after sometime.`,
-  });
+  console.log("errorHandler Error", err.errors);
+  const sendErrors = {
+    status: 500,
+    success: false,
+  };
+  sendErrors.errors = err.errors.map((error) => error.message);
+  res.status(err?.statusCode || 500).json(sendErrors);
 });
 
 // Connect MySQL database

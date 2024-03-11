@@ -30,6 +30,9 @@ class Users extends Model {
       onUpdate: "CASCADE",
     });
   }
+  isValidPassword = (password) => {
+    return md5(password) === this.getDataValue("password");
+  };
 }
 
 Users.init(
@@ -52,9 +55,8 @@ Users.init(
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
-      set(data) {
-        return md5(data);
+      set(value) {
+        this.setDataValue("password", md5(value));
       },
     },
     first_name: {

@@ -42,6 +42,10 @@ Categories.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    banner: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     is_published: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

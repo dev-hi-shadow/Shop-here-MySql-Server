@@ -1,5 +1,5 @@
 const { JoiValidator } = require("../../middlewares");
-const { Register, login } = require("./controllers");
+const { Register, login } = require("./controller");
 const { RegisterJoiSchema, loginJoiSchema } = require("./validation");
 
 const router = require("express").Router();
