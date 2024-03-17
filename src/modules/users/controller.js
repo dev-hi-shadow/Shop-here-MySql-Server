@@ -109,7 +109,7 @@ const login = async (req, res, next) => {
         message: "Invalid email ",
       });
     }
-     const isMatch = md5(password) === user.getDataValue("password");
+    const isMatch = md5(password) === user.getDataValue("password");
     if (!isMatch) {
       return res.status(400).json({
         status: false,
@@ -150,7 +150,7 @@ const getProfile = async (req, res, next) => {
 
 const admins = async (req, res, next) => {
   try {
-    const user = await Users.findAll({
+    const user = await Users.findAndCountAll({
       include: {
         model: Roles,
         as: "role",

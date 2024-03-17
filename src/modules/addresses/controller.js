@@ -22,7 +22,7 @@ exports.AddAddress = async (req, res, next) => {
 
 exports.GetAddresses = async (req, res, next) => {
   try {
-    const addresses = await Addresses.findAll({
+    const addresses = await Addresses.findAndCountAll({
       where: {
         user_id: req.user_id,
       },

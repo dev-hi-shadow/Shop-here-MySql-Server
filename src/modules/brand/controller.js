@@ -21,7 +21,7 @@ exports.CreateBrand = async (req, res, next) => {
 
 exports.GetBrands = async (req, res, next) => {
   try {
-    const brands = await Brands.findAll({
+    const brands = await Brands.findAndCountAll({
       attributes: defaultAttributes,
     });
     res.status(200).json({

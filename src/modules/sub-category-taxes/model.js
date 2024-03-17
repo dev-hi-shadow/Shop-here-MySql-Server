@@ -10,13 +10,16 @@ class SubCategoryTax extends Model {
       foreignKey: "deleted_by",
     });
     SubCategoryTax.belongsTo(db.Users, {
-       foreignKey: "created_by",
+      foreignKey: "created_by",
     });
     SubCategoryTax.belongsTo(db.Taxes, {
       as: "tax",
       foreignKey: "tax_id",
     });
- 
+    SubCategoryTax.belongsTo(db.SubCategories, {
+      as: "sub_category",
+      foreignKey: "sub_category_id",
+    });
   }
 }
 SubCategoryTax.init(

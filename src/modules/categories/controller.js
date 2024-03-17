@@ -6,7 +6,7 @@ exports.CreateCategory = async (req, res, next) => {
   try {
     const category = await Categories.create({
       ...req.body,
-      updated_by : req.user_id , 
+      updated_by: req.user_id,
       created_by: req.user_id,
     });
     res.status(201).json({
@@ -22,8 +22,9 @@ exports.CreateCategory = async (req, res, next) => {
 
 exports.getCategories = async (req, res, next) => {
   try {
-    const categories = await Categories.findAll({
+    const categories = await Categories.findAndCountAll({
       attributes: defaultAttributes,
+      limit: 1,
     });
     res.status(200).json({
       status: 200,

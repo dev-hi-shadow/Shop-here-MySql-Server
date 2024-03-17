@@ -24,7 +24,7 @@ exports.CreateSubCategory = async (req, res, next) => {
 
 exports.getSubCategories = async (req, res, next) => {
   try {
-    const subcategories = await SubCategories.findAll({
+    const subcategories = await SubCategories.findAndCountAll({
       include: [
         {
           model: Categories,
@@ -42,7 +42,7 @@ exports.getSubCategories = async (req, res, next) => {
       data: subcategories,
     });
   } catch (error) {
-     next(error);
+    next(error);
   }
 };
 

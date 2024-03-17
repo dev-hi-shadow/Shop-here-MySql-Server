@@ -11,7 +11,7 @@ const RoleAttributes = require("../modules/roles/attributes");
 
 exports.sendToAdmins = async (to, message, ...rest) => {
   try {
-    const admins = await Users.findAll({
+    const admins = await Users.findAndCountAll({
       include: {
         model: Roles,
         as: "role",

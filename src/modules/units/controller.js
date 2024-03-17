@@ -21,7 +21,7 @@ exports.CreateUnit = async (req, res, next) => {
 
 exports.GetUnits = async (req, res, next) => {
   try {
-    const units = await Units.findAll({
+    const units = await Units.findAndCountAll({
       attributes: defaultAttributes,
     });
     res.status(200).json({

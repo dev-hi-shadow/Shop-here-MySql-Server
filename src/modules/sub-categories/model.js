@@ -16,12 +16,14 @@ class SubCategories extends Model {
       foreignKey: "category_id",
       targetKey: "id",
     }),
+    SubCategories.hasMany(db.SubCategoryTax, {
+      foreignKey: 'sub_category_id',
+     });
       SubCategories.belongsTo(db.Users, {
         as: "creator",
         foreignKey: "created_by",
         targetKey: "id",
       });
- 
   }
 }
 SubCategories.init(

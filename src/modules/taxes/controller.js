@@ -21,7 +21,7 @@ exports.CreateTax = async (req, res, next) => {
 
 exports.GetTaxes = async (req, res, next) => {
   try {
-    const tax = await Taxes.findAll({
+    const tax = await Taxes.findAndCountAll({
       attributes: defaultAttributes,
     });
     res.status(200).json({

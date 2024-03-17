@@ -1,8 +1,8 @@
-const {Roles} = require("../../models");
+const { Roles } = require("../../models");
 
 const GetAllRoles = async (req, res, next) => {
   try {
-    const roles = await Roles.findAll({ plain: true, raw: true });
+    const roles = await Roles.findAndCountAll({ plain: true, raw: true });
     res.status(200).json({
       status: true,
       message: "Roles fetched successfully",

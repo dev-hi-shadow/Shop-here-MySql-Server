@@ -4,19 +4,19 @@ exports.GetAlerts = async (req, res, next) => {
   try {
     let alerts = null;
     if (["ADMIN", "SUPER_ADMIN"].includes(req.user.role.name)) {
-      alerts = await AdminNotify.findAll({
+      alerts = await AdminNotify.findAndCountAll({
         where: {
           user_id: req.user_id,
         },
       });
     } else if (req.user.role.name === "SELLER") {
-      alerts = await SellerNotify.findAll({
+      alerts = await SellerNotify.findAndCountAll({
         where: {
           user_id: req.user_id,
         },
       });
     } else if (req.user.role.name === "CUSTOMER") {
-      alerts = await CustomerNotify.findAll({
+      alerts = await CustomerNotify.findAndCountAll({
         where: {
           user_id: req.user_id,
         },

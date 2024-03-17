@@ -2,7 +2,7 @@ const { Products } = require("../../models");
 
 exports.AddProduct = async (req, res, next) => {
   try {
-     // const product = await Products.create(req.body);
+    // const product = await Products.create(req.body);
     res.status(200).json({
       status: 200,
       success: true,
@@ -19,7 +19,7 @@ exports.GetProducts = async (req, res, next) => {
     let products = null;
     if (req.param.id)
       products = await Products.findOne({ where: { id: req.param.id } });
-    else products = await Products.findAll();
+    else products = await Products.findAndCountAll();
     res.status(200).json({
       status: 200,
       success: true,
@@ -30,4 +30,3 @@ exports.GetProducts = async (req, res, next) => {
     next(error);
   }
 };
-

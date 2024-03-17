@@ -69,6 +69,7 @@ app.use((err, req, res, next) => {
   res.status(err?.statusCode || 500).json(sendErrors);
 });
 
+
 // Connect MySQL database
 sequelize
   .authenticate()

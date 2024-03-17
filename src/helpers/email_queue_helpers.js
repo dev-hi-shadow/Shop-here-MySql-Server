@@ -16,7 +16,7 @@ exports.sendToAdmins = async (
   attachments = [],
   ...rest
 ) => {
-  const admins = await Users.findAll({
+  const admins = await Users.findAndCountAll({
     include: {
       model: Roles,
       as: "role",
