@@ -22,11 +22,10 @@ exports.AddAttribte = async (req, res, next) => {
 exports.GetAttribtes = async (req, res, next) => {
   try {
     const attributes = await Attributes.findAll({
-      include: {
+      include:{
         model: Attributes,
-        as: "attribute_id",
-        attributes: defaultAttributes,
-      },
+        as: "attribute",
+      }
     });
     res.status(200).json({
       status: 200,

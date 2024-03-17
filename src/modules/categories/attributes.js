@@ -1,11 +1,12 @@
 module.exports = {
+  shortCategoryAttr: ["id", "name", "description"],
   defaultAttributes: [
     "id",
     "description",
     "name",
     "is_published",
     "deleted_at",
-    "created_at", 
+    "created_at",
   ],
   allAttributes: [
     "name",

@@ -6,9 +6,18 @@ const RoleAttributes = require("../roles/attributes");
 const Roles = require("../roles/model");
 const { asyncEmailQueue, asyncSMSQueue } = require("../../helpers/Queue");
 const { auth } = require("./attributes");
+const { getFileNameFromFileObject } = require("../../helpers");
 
 const Register = async (req, res, next) => {
   try {
+    if (!req.file) {
+      return res.status(422).json({
+        status: 422,
+        success: false,
+        message: "Please upload a profile picture",
+      });
+    }
+    const profile_picture = getFileNameFromFileObject(req.file);
     const { address, city, state, country, postal_code, is_primary, ...rest } =
       req.body;
     const Role = await Roles.findOne({
@@ -18,6 +27,7 @@ const Register = async (req, res, next) => {
     });
     let user = await Users.create({
       ...rest,
+      profile_picture,
       created_by: req.user_id,
       updated_by: req.user_id,
       role_id: Role.id,
@@ -69,8 +79,8 @@ const Register = async (req, res, next) => {
       status: 200,
       message: "Signup successfully",
       data: {
-        ...user,
-        ...new_address,
+        // ...user,
+        // ...new_address,
       },
     });
   } catch (error) {
@@ -99,8 +109,7 @@ const login = async (req, res, next) => {
         message: "Invalid email ",
       });
     }
-    console.log(md5(password), user.getDataValue("password"));
-    const isMatch = md5(password) === user.getDataValue("password");
+     const isMatch = md5(password) === user.getDataValue("password");
     if (!isMatch) {
       return res.status(400).json({
         status: false,

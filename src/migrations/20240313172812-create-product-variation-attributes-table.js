@@ -3,16 +3,20 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("attributes", {
+    await queryInterface.createTable("product_variation_attributes", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      name: {
-        type: Sequelize.STRING,
+      variation_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "product_variations",
+          key: "id",
+        },
       },
       attribute_id: {
         type: Sequelize.INTEGER,
@@ -22,15 +26,8 @@ module.exports = {
           key: "id",
         },
       },
+
       created_by: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "users",
-          key: "id",
-        },
-      },
-      deleted_by: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -40,7 +37,15 @@ module.exports = {
       },
       updated_by: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+      deleted_by: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
         references: {
           model: "users",
           key: "id",
@@ -56,11 +61,13 @@ module.exports = {
       },
       deleted_at: {
         type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: null,
       },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("attributes");
+    await queryInterface.dropTable("product_variation_attributes");
   },
 };

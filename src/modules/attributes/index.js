@@ -1,18 +1,17 @@
 const { JoiValidator } = require("../../middlewares");
-const { AddAttribte, DeleteAttribute } = require("./controller");
-const { getAttributes } = require("./model");
+const { AddAttribte, DeleteAttribute, GetAttribtes } = require("./controller");
 const { CreateAttributeJoiValidation } = require("./validation");
 
 const router = require("express").Router();
 
 router
   .route("/create")
-  .get(JoiValidator(CreateAttributeJoiValidation), AddAttribte);
+  .post(JoiValidator(CreateAttributeJoiValidation), AddAttribte);
 
-router.route("/").get(getAttributes);
+router.route("/").get(GetAttribtes);
 router
   .route("/update/:id")
-  .get(JoiValidator(CreateAttributeJoiValidation), AddAttribte);
+  .put(JoiValidator(CreateAttributeJoiValidation), AddAttribte);
 
 router.route("/delete/:id").delete(DeleteAttribute);
 

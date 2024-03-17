@@ -1,4 +1,4 @@
-const { SubCategoryTax } = require("../../models");
+const { SubCategoryTax, SubCategories, Taxes } = require("../../models");
 const { defaultAttributes } = require("./attributes");
 
 exports.AddSubCategoryTax = async (req, res, next) => {
@@ -22,12 +22,20 @@ exports.AddSubCategoryTax = async (req, res, next) => {
 exports.GetSubCategoryTaxes = async (req, res, next) => {
   try {
     const subcategory_tax = await SubCategoryTax.findAll({
+      include: [
+        {
+          model: SubCategories,
+        },
+        {
+          model: Taxes,
+        },
+      ],
       attributes: defaultAttributes,
     });
     res.status(201).json({
       status: 201,
       success: true,
-      message: "Tax added in Sub Category",
+      message: "Fetched in Sub Category Taxes",
       data: subcategory_tax,
     });
   } catch (error) {

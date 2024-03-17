@@ -36,7 +36,6 @@ app.use(
 
 // morgan configurations to print api request logs
 const morgan = require("morgan");
-const { findplace } = require("./services/nodemailer");
 // Print api request log into terminal.
 // here we are used dev format to print logs into terminal because it's print quick overview about user request with colorful output
 app.use(morgan("dev"));
@@ -59,12 +58,14 @@ app.use(require("./routes/index"));
 
 // common middleware to handle all errors
 app.use((err, req, res, next) => {
-  console.log("errorHandler Error", err.errors);
+  console.log("🚀  err:", err);
   const sendErrors = {
     status: 500,
     success: false,
   };
-  sendErrors.errors = err.errors.map((error) => error.message);
+  sendErrors.errors = Array.isArray(err.errors)
+    ? err.errors.map((error) => error.message)
+    : err;
   res.status(err?.statusCode || 500).json(sendErrors);
 });
 

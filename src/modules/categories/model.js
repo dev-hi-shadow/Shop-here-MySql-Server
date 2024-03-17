@@ -8,9 +8,7 @@ class Categories extends Model {
       sourceKey: "id",
     });
     Categories.hasMany(db.SubCategories, {
-      as: "subcategories",
-      foreignKey: "subcategory_id",
-      sourceKey: "id",
+      foreignKey: "category_id",
     });
     Categories.belongsTo(db.Users, {
       foreignKey: "updated_by",

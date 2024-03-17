@@ -1,27 +1,20 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
 
-class Attributes extends Model {
+class ProductVariationAttributes extends Model {
   static associate(db) {
-    Attributes.belongsTo(db.Users, {
-      foreignKey: "created_by",
-      sourceKey: "id",
-    });
-    Attributes.belongsTo(db.Users, {
-      foreignKey: "updated_by",
-      sourceKey: "id",
-    });
-    Attributes.belongsTo(db.Attributes, {
-      foreignKey: "attribute_id",
+    ProductVariationAttributes.hasMany(db.Attributes, {
       as: "attribute",
-    });
-    Attributes.belongsTo(db.Users, {
-      foreignKey: "deleted_by",
-      sourceKey: "id",
-    });
+      foreignKey: "attribute_id",
+     });
+    ProductVariationAttributes.hasMany(db.ProductVariations, {
+      as: "variation",
+      foreignKey: "variation_id",
+     });
   }
 }
-Attributes.init(
+
+ProductVariationAttributes.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -29,9 +22,13 @@ Attributes.init(
       allowNull: false,
       autoIncrement: true,
     },
-    name: {
-      type: DataTypes.STRING,
+    variation_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "product_variations",
+        key: "id",
+      },
     },
     attribute_id: {
       type: DataTypes.INTEGER,
@@ -41,9 +38,18 @@ Attributes.init(
         key: "id",
       },
     },
+
     created_by: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "users",
+        key: "id",
+      },
+    },
+    updated_by: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "users",
         key: "id",
@@ -57,20 +63,12 @@ Attributes.init(
         key: "id",
       },
     },
-    updated_by: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "users",
-        key: "id",
-      },
-    },
   },
   {
     sequelize,
-    tableName: "attributes",
-    modelName: "Attributes",
+    tableName: "product_variation_attributes",
+    modelName: "ProductVariationAttributes",
   }
 );
 
-module.exports = Attributes;
+module.exports = ProductVariationAttributes;

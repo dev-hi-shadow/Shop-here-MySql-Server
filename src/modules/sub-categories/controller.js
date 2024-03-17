@@ -1,6 +1,8 @@
-const { SubCategories, Categories } = require("../../models");
+const { SubCategories, Categories, SubCategoryTax } = require("../../models");
 const { Op } = require("sequelize");
 const { defaultAttributes } = require("./attributes");
+const { sequelize } = require("../../config/mysql");
+const { shortCategoryAttr } = require("../categories/attributes");
 
 exports.CreateSubCategory = async (req, res, next) => {
   try {
@@ -22,23 +24,25 @@ exports.CreateSubCategory = async (req, res, next) => {
 
 exports.getSubCategories = async (req, res, next) => {
   try {
-    const categories = await SubCategories.findAll({
-      attributes: defaultAttributes,
+    const subcategories = await SubCategories.findAll({
       include: [
         {
           model: Categories,
           as: "category",
+          attributes: shortCategoryAttr,
         },
       ],
+      attributes: defaultAttributes,
     });
+
     res.status(200).json({
       status: 200,
       success: true,
-      message: "Sub Category fetched",
-      data: categories,
+      message: "Fetched Sub Categories",
+      data: subcategories,
     });
   } catch (error) {
-    next(error);
+     next(error);
   }
 };
 
@@ -46,7 +50,7 @@ exports.updateSubCategory = async (req, res, next) => {
   try {
     if (req.body.verified === true) req.body.published_at = new Date();
     if (req.body.is_published === false) req.body.published_at = null;
-    const category = await SubCategories.update(
+    const subcategories = await SubCategories.update(
       { ...req.body, updated_by: req.user_id },
       {
         where: req.params.id,
@@ -56,7 +60,7 @@ exports.updateSubCategory = async (req, res, next) => {
       status: 200,
       success: true,
       message: "Sub Category Updated Successfully",
-      data: category,
+      data: subcategories,
     });
   } catch (error) {
     next(error);
@@ -65,14 +69,14 @@ exports.updateSubCategory = async (req, res, next) => {
 
 exports.deleteSubCategory = async (req, res, next) => {
   try {
-    const category = await SubCategories.destroy({
+    const subcategories = await SubCategories.destroy({
       where: req.params.id,
     });
     res.status(200).json({
       status: 200,
       success: true,
       message: "Sub Category Deleted successfully",
-      data: category,
+      data: subcategories,
     });
   } catch (error) {
     next(error);

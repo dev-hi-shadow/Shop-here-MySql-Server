@@ -21,6 +21,7 @@ class SubCategories extends Model {
         foreignKey: "created_by",
         targetKey: "id",
       });
+ 
   }
 }
 SubCategories.init(

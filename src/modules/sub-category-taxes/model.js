@@ -5,22 +5,18 @@ class SubCategoryTax extends Model {
   static associate(db) {
     SubCategoryTax.belongsTo(db.Users, {
       foreignKey: "updated_by",
-      sourceKey: "id",
     });
     SubCategoryTax.belongsTo(db.Users, {
       foreignKey: "deleted_by",
-      sourceKey: "id",
     });
     SubCategoryTax.belongsTo(db.Users, {
-      as: "creator",
-      foreignKey: "created_by",
-      targetKey: "id",
+       foreignKey: "created_by",
     });
     SubCategoryTax.belongsTo(db.Taxes, {
       as: "tax",
       foreignKey: "tax_id",
-      targetKey: "id",
     });
+ 
   }
 }
 SubCategoryTax.init(
