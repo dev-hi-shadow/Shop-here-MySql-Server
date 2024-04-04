@@ -17,6 +17,7 @@ const SubCategoryTax = require("../modules/sub-category-taxes/model");
 const Products = require("../modules/products/model");
 const ProductVariationAttributes = require("../modules/product_variation_attributes/model");
 const ProductVariations = require("../modules/product_variations/model");
+const Faqs = require("../modules/faqs/model");
 
 const db = {
   Roles,
@@ -36,6 +37,7 @@ const db = {
   Products,
   ProductVariationAttributes,
   ProductVariations,
+  Faqs,
 };
 
 Object.keys(db).forEach((modelName) => {

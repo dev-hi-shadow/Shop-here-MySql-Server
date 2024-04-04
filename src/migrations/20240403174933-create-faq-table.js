@@ -3,55 +3,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("addresses", {
+    await queryInterface.createTable("faqs", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      user_id: {
-        type: Sequelize.INTEGER,
+      question: {
+        type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+      },
+      answer: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
+      product_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
         references: {
-          model: "users",
+          model: "products",
           key: "id",
         },
-      },
-      address: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      landmark: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      city: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      state: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      is_pickup: {
-        type: Sequelize.BOOLEAN,
-        allowNull: true,
-        defaultValue: false,
-      },
-      country: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      postal_code: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      is_primary: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
       },
       created_by: {
         type: Sequelize.INTEGER,
@@ -92,6 +65,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("addresses");
+    await queryInterface.dropTable("faqs");
   },
 };

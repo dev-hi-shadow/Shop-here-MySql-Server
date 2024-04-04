@@ -1,26 +1,26 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
-const Roles = require("../roles/model");
-const md5 = require("md5");
 
-class Addresses extends Model {
+class Faqs extends Model {
   static associate(db) {
-    Addresses.belongsTo(db.Users, {
+    Faqs.belongsTo(db.Users, {
       foreignKey: "created_by",
       sourceKey: "id",
     });
-    Addresses.belongsTo(db.Users, {
+    Faqs.hasMany(db.Products, {
+      foreignKey: "product_id",
+    });
+    Faqs.belongsTo(db.Users, {
       foreignKey: "updated_by",
       sourceKey: "id",
     });
-    Addresses.belongsTo(db.Users, {
+    Faqs.belongsTo(db.Users, {
       foreignKey: "deleted_by",
       sourceKey: "id",
     });
   }
 }
-
-Addresses.init(
+Faqs.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -28,47 +28,21 @@ Addresses.init(
       allowNull: false,
       autoIncrement: true,
     },
-    user_id: {
-      type: DataTypes.INTEGER,
+    question: {
+      type: DataTypes.STRING,
       allowNull: false,
+    },
+    answer: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    product_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
-        model: "users",
+        model: "products",
         key: "id",
       },
-    },
-    address: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    landmark: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    city: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    state: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    country: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    postal_code: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    is_pickup: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: false,
-    },
-    is_primary: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
     },
     created_by: {
       type: DataTypes.INTEGER,
@@ -80,7 +54,7 @@ Addresses.init(
     },
     deleted_by: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: "users",
         key: "id",
@@ -97,9 +71,9 @@ Addresses.init(
   },
   {
     sequelize,
-    tableName: "addresses",
-    modelName: "Addresses",
+    tableName: "faqs",
+    modelName: "Faqs",
   }
 );
 
-module.exports = Addresses;
+module.exports = Faqs;

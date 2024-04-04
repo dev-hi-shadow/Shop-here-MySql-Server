@@ -9,5 +9,6 @@ module.exports = {
     "is_primary",
     "updated_at",
     "deleted_at",
+    "is_pickup",
   ],
 };
