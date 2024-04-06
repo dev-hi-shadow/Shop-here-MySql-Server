@@ -1,31 +1,35 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
 
-class ProductVariations extends Model {
+class PrVariations extends Model {
   static associate(db) {
-    ProductVariations.hasMany(db.Products, {
+    PrVariations.hasMany(db.Products, {
       as: "product",
       foreignKey: "product_id",
     });
-    ProductVariations.belongsTo(db.Users, {
+    PrVariations.belongsTo(db.Users, {
       foreignKey: "created_by",
     });
-    ProductVariations.belongsTo(db.Users, {
+    PrVariations.belongsTo(db.Users, {
       foreignKey: "updated_by",
     });
-    ProductVariations.belongsTo(db.Users, {
+    PrVariations.belongsTo(db.Users, {
       foreignKey: "deleted_by",
     });
   }
 }
 
-ProductVariations.init(
+PrVariations.init(
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
       autoIncrement: true,
+    },
+    variation_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     product_id: {
       type: DataTypes.INTEGER,
@@ -96,9 +100,9 @@ ProductVariations.init(
   },
   {
     sequelize,
-    tableName: "product_variations",
-    modelName: "ProductVariations",
+    tableName: "pr_variations",
+    modelName: "PrVariations",
   }
 );
 
-module.exports = ProductVariations;
+module.exports = PrVariations;

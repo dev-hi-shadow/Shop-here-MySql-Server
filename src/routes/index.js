@@ -17,5 +17,6 @@ router.use("/addresses", require("../modules/addresses"));
 router.use("/attributes", require("../modules/attributes"));
 router.use("/taxes", require("../modules/taxes"));
 router.use("/units", require("../modules/units"));
+router.use("/products", require("../modules/products"));
 router.use("/sub-categories-taxes", require("../modules/sub-category-taxes"));
 module.exports = router;

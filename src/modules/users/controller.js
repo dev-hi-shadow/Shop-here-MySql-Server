@@ -89,6 +89,7 @@ const Register = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
+  console.log("helllo")
   try {
     const { credential, password } = req.body;
     let user = await Users.findOne({
@@ -165,9 +166,34 @@ const admins = async (req, res, next) => {
     res.status(500).json({ error });
   }
 };
+
+const Logout = async (req, res, next) => {
+  try {
+    const user = await Users.findByPk(req.user.id);
+    if (!user) {
+      return res.status(400).json({
+        status: false,
+        message: "Something went wrong!",
+        logout: true,
+      });
+    }
+    req.user = null;
+    req.user_id = null;
+    req.isAdmin = null;
+
+    res.status(200).json({
+      status: 200,
+      message: "Logout Successfull",
+      logout: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   Register,
   getProfile,
   login,
   admins,
+  Logout,
 };

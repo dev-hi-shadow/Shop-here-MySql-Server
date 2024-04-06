@@ -11,6 +11,10 @@ class Products extends Model {
       as: "categories",
       foreignKey: "category_id",
     });
+    Products.belongsTo(db.SubCategories, {
+      as: "sub_categories",
+      foreignKey: "sub_category_id",
+    });
     Products.belongsTo(db.Users, {
       foreignKey: "created_by",
     });
@@ -100,12 +104,10 @@ Products.init(
     },
     is_tax_included: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
       defaultValue: false,
     },
     is_published: {
       type: DataTypes.BOOLEAN,
-      allowNull: true,
       defaultValue: false,
     },
     main_image: {
@@ -124,7 +126,7 @@ Products.init(
     },
     brand_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: "brands",
         key: "id",
@@ -132,7 +134,7 @@ Products.init(
     },
     category_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: "categories",
         key: "id",
@@ -140,7 +142,7 @@ Products.init(
     },
     sub_category_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: "sub_categories",
         key: "id",
@@ -176,6 +178,43 @@ Products.init(
       allowNull: false,
       defaultValue: "Pending",
     },
+    cancellable: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: true,
+    },
+    cancellable_till: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    replaceable: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: true,
+    },
+    replaceable_till: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    returnable: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: true,
+    },
+    returnable_till: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    refundable: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: true,
+    },
+    refundable_till: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+
     created_by: {
       type: DataTypes.INTEGER,
       allowNull: false,

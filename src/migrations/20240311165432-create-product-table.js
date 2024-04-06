@@ -130,14 +130,6 @@ module.exports = {
           key: "id",
         },
       },
-      tax_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: "taxes",
-          key: "id",
-        },
-      },
       is_published: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
@@ -151,6 +143,43 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         defaultValue: "Pending",
+      },
+      cancellable: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+        allowNull: true,
+      },
+      cancellable_till: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      replaceable: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+        allowNull: true,
+      },
+      replaceable_till: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      returnable: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+        allowNull: true,
+      },
+      returnable_till: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+
+      refundable: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+        allowNull: true,
+      },
+      refundable_till: {
+        type: Sequelize.DATE,
+        allowNull: true,
       },
       created_by: {
         type: Sequelize.INTEGER,

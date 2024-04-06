@@ -3,12 +3,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("pr_variation_attributes", {
+    await queryInterface.createTable("user_wishlists", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
+      },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+      product_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "products",
+          key: "id",
+        },
       },
       variation_id: {
         type: Sequelize.INTEGER,
@@ -18,16 +34,15 @@ module.exports = {
           key: "id",
         },
       },
-      attribute_id: {
+      created_by: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
-          model: "attributes",
+          model: "users",
           key: "id",
         },
       },
-
-      created_by: {
+      deleted_by: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -37,15 +52,7 @@ module.exports = {
       },
       updated_by: {
         type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: "users",
-          key: "id",
-        },
-      },
-      deleted_by: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: "users",
           key: "id",
@@ -61,13 +68,11 @@ module.exports = {
       },
       deleted_at: {
         type: Sequelize.DATE,
-        allowNull: true,
-        defaultValue: null,
       },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("pr_variation_attributes");
+    await queryInterface.dropTable("user_wishlists");
   },
 };

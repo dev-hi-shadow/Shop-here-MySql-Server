@@ -3,12 +3,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("pr_variation_attributes", {
+    await queryInterface.createTable("pr_stock_out", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
+      },
+      product_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "products",
+          key: "id",
+        },
+      },
+      order_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "orders",
+          key: "id",
+        },
       },
       variation_id: {
         type: Sequelize.INTEGER,
@@ -18,38 +34,41 @@ module.exports = {
           key: "id",
         },
       },
-      attribute_id: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: "attributes",
-          key: "id",
-        },
+      destination: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
-
-      created_by: {
+      quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {
-          model: "users",
-          key: "id",
-        },
       },
-      updated_by: {
+      created_by: {
         type: Sequelize.INTEGER,
-        allowNull: true,
         references: {
           model: "users",
           key: "id",
         },
+        allowNull: false,
+      },
+      notes: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       deleted_by: {
         type: Sequelize.INTEGER,
-        allowNull: true,
         references: {
           model: "users",
           key: "id",
         },
+        allowNull: true,
+      },
+      updated_by: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "users",
+          key: "id",
+        },
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -61,13 +80,11 @@ module.exports = {
       },
       deleted_at: {
         type: Sequelize.DATE,
-        allowNull: true,
-        defaultValue: null,
       },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("pr_variation_attributes");
+    await queryInterface.dropTable("pr_stock_out");
   },
 };

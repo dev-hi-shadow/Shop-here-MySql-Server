@@ -1,20 +1,20 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
 
-class ProductVariationAttributes extends Model {
+class PrVariationsAttributes extends Model {
   static associate(db) {
-    ProductVariationAttributes.hasMany(db.Attributes, {
+    PrVariationsAttributes.hasMany(db.Attributes, {
       as: "attribute",
       foreignKey: "attribute_id",
-     });
-    ProductVariationAttributes.hasMany(db.ProductVariations, {
+    });
+    PrVariationsAttributes.hasMany(db.PrVariations, {
       as: "variation",
       foreignKey: "variation_id",
-     });
+    });
   }
 }
 
-ProductVariationAttributes.init(
+PrVariationsAttributes.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -26,7 +26,7 @@ ProductVariationAttributes.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "product_variations",
+        model: "pr_variations",
         key: "id",
       },
     },
@@ -66,9 +66,9 @@ ProductVariationAttributes.init(
   },
   {
     sequelize,
-    tableName: "product_variation_attributes",
-    modelName: "ProductVariationAttributes",
+    tableName: "pr_variation_attributes",
+    modelName: "PrVariationsAttributes",
   }
 );
 
-module.exports = ProductVariationAttributes;
+module.exports = PrVariationsAttributes;

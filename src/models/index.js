@@ -15,8 +15,8 @@ const Taxes = require("../modules/taxes/model");
 const Units = require("../modules/units/model");
 const SubCategoryTax = require("../modules/sub-category-taxes/model");
 const Products = require("../modules/products/model");
-const ProductVariationAttributes = require("../modules/product_variation_attributes/model");
-const ProductVariations = require("../modules/product_variations/model");
+const PrVariationsAttributes = require("../modules/product_variation_attributes/model");
+const PrVariations = require("../modules/product_variations/model");
 const Faqs = require("../modules/faqs/model");
 
 const db = {
@@ -35,8 +35,8 @@ const db = {
   SubCategories,
   SubCategoryTax,
   Products,
-  ProductVariationAttributes,
-  ProductVariations,
+  PrVariationsAttributes,
+  PrVariations,
   Faqs,
 };
 
