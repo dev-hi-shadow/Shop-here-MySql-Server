@@ -18,6 +18,10 @@ const Products = require("../modules/products/model");
 const PrVariationsAttributes = require("../modules/product_variation_attributes/model");
 const PrVariations = require("../modules/product_variations/model");
 const Faqs = require("../modules/faqs/model");
+const PrStockIn = require("../modules/product_stock_in/model");
+const PrStockOut = require("../modules/product_stock_OUT/model");
+const Orders = require("../modules/Orders/model");
+const OrItems = require("../modules/order-items/model");
 
 const db = {
   Roles,
@@ -38,6 +42,10 @@ const db = {
   PrVariationsAttributes,
   PrVariations,
   Faqs,
+  PrStockIn,
+  PrStockOut,
+  Orders,
+  OrItems,
 };
 
 Object.keys(db).forEach((modelName) => {

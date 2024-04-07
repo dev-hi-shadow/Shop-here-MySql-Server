@@ -7,7 +7,7 @@ class Faqs extends Model {
       foreignKey: "created_by",
       sourceKey: "id",
     });
-    Faqs.hasMany(db.Products, {
+    Faqs.belongsTo(db.Products, {
       foreignKey: "product_id",
     });
     Faqs.belongsTo(db.Users, {

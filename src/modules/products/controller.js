@@ -49,15 +49,16 @@ exports.AddProduct = async (req, res, next) => {
 
 exports.GetProducts = async (req, res, next) => {
   try {
-    let products = null;
-    if (req.param.id)
-      products = await Products.findOne({ where: { id: req.param.id } });
-    else products = await Products.findAndCountAll();
+ console.log("GetProducts" , req.params)
+    // if (req.param.id)
+    //   products = await Products.findOne({ where: { id: req.params.id } });
+    // else
+     let Aproducts = await Products.findAndCountAll({attributes : !["product_id"]});
     res.status(200).json({
       status: 200,
       success: true,
       message: "Products fetched successfully",
-      data: products,
+      data: Aproducts,
     });
   } catch (error) {
     next(error);
