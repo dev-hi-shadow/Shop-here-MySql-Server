@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.1569.0",
-    "axios": "^1.6.7",
+    "axios": "^1.6.8",
     "bee": "^0.1.1",
     "bee-queue": "^1.7.1",
     "body-parser": "^1.20.2",

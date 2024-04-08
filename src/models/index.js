@@ -22,6 +22,7 @@ const PrStockIn = require("../modules/product_stock_in/model");
 const PrStockOut = require("../modules/product_stock_out/model");
 const Orders = require("../modules/orders/model");
 const OrItems = require("../modules/order-items/model");
+const QbConfig = require("../modules/quickbook-configuration/model");
 
 const db = {
   Roles,
@@ -46,6 +47,7 @@ const db = {
   PrStockOut,
   Orders,
   OrItems,
+  QbConfig,
 };
 
 Object.keys(db).forEach((modelName) => {

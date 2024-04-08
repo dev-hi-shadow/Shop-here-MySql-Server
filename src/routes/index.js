@@ -5,6 +5,7 @@ const router = require("express").Router();
 router.use("/auth", require("../modules/users/auth_routes"));
 router.use("/faqs", require("../modules/faqs/public_routes"));
 router.use("/products", require("../modules/products/public_routes"));
+router.use("/quickbook", require("../modules/quickbook-configuration"));
 
 router.use(verifyAuthToken);
 router.use("/faqs", require("../modules/faqs"));
