@@ -15,6 +15,10 @@ class Brands extends Model {
       foreignKey: "deleted_by",
       sourceKey: "id",
     });
+    Brands.hasMany(db.Products, {
+      foreignKey: "brand_id",
+      as: "brand",
+       });
   }
 }
 Brands.init(

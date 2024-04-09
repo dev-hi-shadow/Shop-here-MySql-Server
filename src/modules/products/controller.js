@@ -1,4 +1,12 @@
-const { Products, PrVariations, Faqs } = require("../../models");
+const {
+  Products,
+  PrVariations,
+  Faqs,
+  Brands,
+  SubCategories,
+  Categories,
+  Units,
+} = require("../../models");
 const _ = require("lodash");
 exports.AddProduct = async (req, res, next) => {
   try {
@@ -49,16 +57,37 @@ exports.AddProduct = async (req, res, next) => {
 
 exports.GetProducts = async (req, res, next) => {
   try {
- console.log("GetProducts" , req.params)
-    // if (req.param.id)
-    //   products = await Products.findOne({ where: { id: req.params.id } });
-    // else
-     let Aproducts = await Products.findAndCountAll({attributes : !["product_id"]});
+    const query = {
+      include: [
+        {
+          model: PrVariations,
+        },
+        {
+          model: Brands,
+          as : "brand"
+        },
+        {
+          model: Categories,
+          as : "category"
+        },
+        {
+          model: SubCategories,
+          as : "sub_category"
+        },
+        {
+          model: Units,
+          as : "unit"
+        },
+      ],
+    };
+    let products = null;
+    if (req.params.id) products = await Products.findByPk(req.params.id, query);
+    else products = await Products.findAndCountAll(query);
     res.status(200).json({
       status: 200,
       success: true,
       message: "Products fetched successfully",
-      data: Aproducts,
+      data: products,
     });
   } catch (error) {
     next(error);

@@ -4,15 +4,15 @@ const { sequelize } = require("../../config/mysql");
 class Products extends Model {
   static associate(db) {
     Products.belongsTo(db.Brands, {
-      as: "brands",
+      as: "brand",
       foreignKey: "brand_id",
     });
     Products.belongsTo(db.Categories, {
-      as: "categories",
+      as: "category",
       foreignKey: "category_id",
     });
     Products.belongsTo(db.SubCategories, {
-      as: "sub_categories",
+      as: "sub_category",
       foreignKey: "sub_category_id",
     });
     Products.belongsTo(db.Users, {
@@ -33,26 +33,24 @@ class Products extends Model {
       foreignKey: "tax_id",
       as: "tax",
     });
+    Products.hasMany(db.PrVariations, {
+      foreignKey: "product_id",
+    });
     Products.hasMany(db.PrStockIn, {
        foreignKey: "product_id",
     });
-    Products.hasMany(db.Orders, {
-       foreignKey: "product_id",
-    });
-    Products.hasMany(db.Faqs, {
-       foreignKey: "product_id",
-    });
-    Products.hasMany(db.PrVariations, {
-       foreignKey: "product_id",
-    });
-    Products.hasMany(db.PrStockOut, {
-       foreignKey: "product_id",
-    });
-    
-    Products.hasMany(db.OrItems, {
-       foreignKey: "product_id",
-    });
-    
+    // Products.hasMany(db.Orders, {
+    //   foreignKey: "product_id",
+    // });
+    // Products.hasMany(db.Faqs, {
+    //   foreignKey: "product_id",
+    // });
+    // Products.hasMany(db.PrStockOut, {
+    //   foreignKey: "product_id",
+    // });
+    // Products.hasMany(db.OrItems, {
+    //   foreignKey: "product_id",
+    // });
   }
 }
 

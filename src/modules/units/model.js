@@ -17,6 +17,10 @@ class Units extends Model {
       foreignKey: "deleted_by",
       sourceKey: "id",
     });
+    Units.hasMany(db.Products, {
+      foreignKey: "unit_id",
+      as: "unit",
+     });
   }
 }
 

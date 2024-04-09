@@ -40,14 +40,14 @@ const db = {
   SubCategories,
   SubCategoryTax,
   Products,
-  PrVariationsAttributes,
   PrVariations,
-  Faqs,
+  PrVariationsAttributes,
   PrStockIn,
-  PrStockOut,
-  Orders,
-  OrItems,
-  QbConfig,
+  // Faqs,
+  // PrStockOut,
+  // Orders,
+  // OrItems,
+  // QbConfig,
 };
 
 Object.keys(db).forEach((modelName) => {

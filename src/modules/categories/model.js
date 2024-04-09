@@ -18,6 +18,11 @@ class Categories extends Model {
       foreignKey: "deleted_by",
       sourceKey: "id",
     });
+    Categories.hasMany(db.Products, {
+      foreignKey: "category_id",
+      as: "category",
+
+     });
   }
 }
 Categories.init(

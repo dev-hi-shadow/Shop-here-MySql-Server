@@ -3,7 +3,7 @@ const { sequelize } = require("../../config/mysql");
 
 class PrVariations extends Model {
   static associate(db) {
-    PrVariations.hasMany(db.Products, {
+    PrVariations.belongsTo(db.Products, {
       as: "product",
       foreignKey: "product_id",
     });
@@ -15,6 +15,9 @@ class PrVariations extends Model {
     });
     PrVariations.belongsTo(db.Users, {
       foreignKey: "deleted_by",
+    });
+    PrVariations.hasMany(db.PrVariationsAttributes, {
+      foreignKey: "variation_id",
     });
   }
 }

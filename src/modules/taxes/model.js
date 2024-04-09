@@ -17,6 +17,10 @@ class Taxes extends Model {
       foreignKey: "updated_by",
       sourceKey: "id",
     });
+    Taxes.hasMany(db.Products, {
+      foreignKey: "tax_id",
+      as: "tax",
+     });
   }
 }
 

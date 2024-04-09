@@ -3,11 +3,11 @@ const { sequelize } = require("../../config/mysql");
 
 class PrVariationsAttributes extends Model {
   static associate(db) {
-    PrVariationsAttributes.hasMany(db.Attributes, {
+    PrVariationsAttributes.belongsTo(db.Attributes, {
       as: "attribute",
       foreignKey: "attribute_id",
     });
-    PrVariationsAttributes.hasMany(db.PrVariations, {
+    PrVariationsAttributes.belongsTo(db.PrVariations, {
       as: "variation",
       foreignKey: "variation_id",
     });

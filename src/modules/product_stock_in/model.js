@@ -18,10 +18,12 @@ class PrStockIn extends Model {
     PrStockIn.belongsTo(db.Products, {
       foreignKey: "product_id",
       sourceKey: "id",
+      as : "product"
     });
     PrStockIn.belongsTo(db.PrVariations, {
       foreignKey: "variation_id",
       sourceKey: "id",
+      as : "variation"
     });
   }
 }
