@@ -35,6 +35,7 @@ exports.GetStock = async (req, res, next) => {
         variation_id: req.params.variation_id,
       };
     }
+    
     let stockin = await PrStockIn.findAndCountAll(query);
     res.status(201).json({
       status: 201,

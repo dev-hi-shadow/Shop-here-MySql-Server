@@ -43,11 +43,11 @@ const db = {
   PrVariations,
   PrVariationsAttributes,
   PrStockIn,
-  // Faqs,
-  // PrStockOut,
-  // Orders,
-  // OrItems,
-  // QbConfig,
+  Faqs,
+  PrStockOut,
+  Orders,
+  OrItems,
+  QbConfig,
 };
 
 Object.keys(db).forEach((modelName) => {

@@ -23,10 +23,6 @@ class Orders extends Model {
       foreignKey: "product_id",
       sourceKey: "id",
     });
-    Orders.belongsTo(db.Orders, {
-      foreignKey: "order_id",
-      sourceKey: "id",
-    });
     Orders.belongsTo(db.PrVariations, {
       foreignKey: "variation_id",
       sourceKey: "id",
@@ -41,154 +37,156 @@ class Orders extends Model {
     });
     Orders.hasMany(db.OrItems, {
       foreignKey: "order_id",
-     });
+      as : "order"
+    });
   }
 }
 Orders.init(
-    {
-        id: {
-          type: DataTypes.INTEGER,
-          primaryKey: true,
-          allowNull: false,
-          autoIncrement: true,
-        },
-        user_id: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          references: {
-            model: "users",
-            key: "id",
-          },
-        },
-        payment_status: {
-          type: DataTypes.ENUM("PENDING", "SUCCESS", "FAILED", "PROCESSING"),
-          allowNull: false,
-        },
-        payment_method: {
-          type: DataTypes.ENUM("ONLINE", "CASH ON DELIVERY"),
-          allowNull: false,
-        },
-        total_items: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-        },
-        subtotal_amount: {
-          type: DataTypes.DECIMAL(10, 2),
-          allowNull: false,
-        },
-        tax_amount: {
-          type: DataTypes.DECIMAL(10, 2),
-          allowNull: false,
-        },
-        shipping_amount: {
-          type: DataTypes.DECIMAL(10, 2),
-          allowNull: false,
-        },
-        discount_amount: {
-          type: DataTypes.DECIMAL(10, 2),
-          allowNull: false,
-        },
-        total_amount: {
-          type: DataTypes.DECIMAL(10, 2),
-          allowNull: false,
-        },
-        shipping_address_id: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          references: {
-            model: "addresses",
-            key: "id",
-          },
-        },
-        billing_address_id: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          references: {
-            model: "addresses",
-            key: "id",
-          },
-        },
-        payment_date: {
-          type: DataTypes.DATE,
-          allowNull: false,
-        },
-        shipped_date: {
-          type: DataTypes.DATE,
-          allowNull: false,
-        },
-        expected_delivery_date: {
-          type: DataTypes.DATE,
-          allowNull: false,
-        },
-        delivered_date: {
-          type: DataTypes.DATE,
-          allowNull: true,
-        },
-        cancellation_date: {
-          type: DataTypes.DATE,
-          allowNull: true,
-        },
-        refund_date: {
-          type: DataTypes.DATE,
-          allowNull: true,
-        },
-        tracking_number: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
-        carrier_name: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
-        notes: {
-          type: DataTypes.TEXT,
-          allowNull: true,
-        },
-        gift_wrap: {
-          type: DataTypes.BOOLEAN,
-          defaultValue: false,
-        },
-        gift_message: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
-        promo_code_used: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
-        transaction_id: {
-          type: DataTypes.STRING,
-          allowNull: true,
-        },
-        review_requested: {
-          type: DataTypes.BOOLEAN,
-          defaultValue: false,
-        },
-        created_by: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          references: {
-            model: "users",
-            key: "id",
-          },
-        },
-        deleted_by: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          references: {
-            model: "users",
-            key: "id",
-          },
-        },
-        updated_by: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          references: {
-            model: "users",
-            key: "id",
-          },
-        },
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id",
       },
+    },
+    payment_status: {
+      type: DataTypes.ENUM("PENDING", "SUCCESS", "FAILED", "PROCESSING"),
+      allowNull: false,
+      defaultValue: "PENDING",
+    },
+    payment_method: {
+      type: DataTypes.ENUM("ONLINE", "CASH ON DELIVERY"),
+      allowNull: false,
+    },
+    total_items: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    subtotal_amount: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    tax_amount: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    shipping_amount: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    discount_amount: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    total_amount: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    shipping_address_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "addresses",
+        key: "id",
+      },
+    },
+    billing_address_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "addresses",
+        key: "id",
+      },
+    },
+    payment_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    shipped_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    expected_delivery_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    delivered_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    cancellation_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    refund_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    tracking_number: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    carrier_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    notes: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    gift_wrap: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    gift_message: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    promo_code_used: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    transaction_id: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    review_requested: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    created_by: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id",
+      },
+    },
+    deleted_by: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: "users",
+        key: "id",
+      },
+    },
+    updated_by: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: "users",
+        key: "id",
+      },
+    },
+  },
   {
     sequelize,
     tableName: "orders",

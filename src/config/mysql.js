@@ -1,6 +1,7 @@
 const { Sequelize } = require("sequelize");
 const config = require("./config")[process.env.APP_MODE];
 
+
 const sequelize = new Sequelize(
   config.database,
   config.username,

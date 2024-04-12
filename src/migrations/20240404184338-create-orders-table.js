@@ -21,6 +21,7 @@ module.exports = {
       payment_status: {
         type: Sequelize.ENUM("PENDING", "SUCCESS", "FAILED", "PROCESSING"),
         allowNull: false,
+        defaultValue : "PENDING"
       },
       payment_method: {
         type: Sequelize.ENUM("ONLINE", "CASH ON DELIVERY"),
@@ -31,23 +32,23 @@ module.exports = {
         allowNull: false,
       },
       subtotal_amount: {
-        type: Sequelize.DECIMAL(10, 2),
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       tax_amount: {
-        type: Sequelize.DECIMAL(10, 2),
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       shipping_amount: {
-        type: Sequelize.DECIMAL(10, 2),
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       discount_amount: {
-        type: Sequelize.DECIMAL(10, 2),
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       total_amount: {
-        type: Sequelize.DECIMAL(10, 2),
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       shipping_address_id: {
@@ -132,7 +133,7 @@ module.exports = {
       },
       deleted_by: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "users",
           key: "id",
@@ -140,7 +141,7 @@ module.exports = {
       },
       updated_by: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "users",
           key: "id",

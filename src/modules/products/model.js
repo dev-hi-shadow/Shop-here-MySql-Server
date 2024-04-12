@@ -39,18 +39,18 @@ class Products extends Model {
     Products.hasMany(db.PrStockIn, {
        foreignKey: "product_id",
     });
-    // Products.hasMany(db.Orders, {
-    //   foreignKey: "product_id",
-    // });
-    // Products.hasMany(db.Faqs, {
-    //   foreignKey: "product_id",
-    // });
-    // Products.hasMany(db.PrStockOut, {
-    //   foreignKey: "product_id",
-    // });
-    // Products.hasMany(db.OrItems, {
-    //   foreignKey: "product_id",
-    // });
+    Products.hasMany(db.Orders, {
+      foreignKey: "product_id",
+    });
+    Products.hasMany(db.Faqs, {
+      foreignKey: "product_id",
+    });
+    Products.hasMany(db.PrStockOut, {
+      foreignKey: "product_id",
+    });
+    Products.hasMany(db.OrItems, {
+      foreignKey: "product_id",
+    });
   }
 }
 
