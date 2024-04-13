@@ -33,12 +33,12 @@ exports.sendEmail = async (
     );
 
     let transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true, // true for 465, false for other ports
+      host: process.env.EMAIL_SMTP_HOST,
+      port: process.env.EMAIL_SMTP_PORT,
+      secure: true,  
       auth: {
-        user: "ckdrametizzz@gmail.com", // your email
-        pass: "uitu yhcv oywg qwkd", // your email password
+        user: process.env.SHOP_HERE_EMAIL, 
+        pass: process.env.SMTP_PASSWORD, 
       },
     });
 
