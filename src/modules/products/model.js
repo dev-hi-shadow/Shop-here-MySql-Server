@@ -37,10 +37,8 @@ class Products extends Model {
       foreignKey: "product_id",
     });
     Products.hasMany(db.PrStockIn, {
-       foreignKey: "product_id",
-    });
-    Products.hasMany(db.Orders, {
       foreignKey: "product_id",
+      as: "stocks",
     });
     Products.hasMany(db.Faqs, {
       foreignKey: "product_id",

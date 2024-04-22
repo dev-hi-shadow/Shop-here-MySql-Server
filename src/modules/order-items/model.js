@@ -16,8 +16,7 @@ class OrItems extends Model {
       foreignKey: "product_id",
     });
     OrItems.belongsTo(db.Orders, {
-      as: "order",
-      foreignKey: "order_id",
+        foreignKey: "order_id",
     });
   }
 }

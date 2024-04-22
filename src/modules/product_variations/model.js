@@ -19,6 +19,9 @@ class PrVariations extends Model {
     PrVariations.hasMany(db.PrVariationsAttributes, {
       foreignKey: "variation_id",
     });
+    PrVariations.hasMany(db.OrItems, {
+      foreignKey: "variation_id",
+    });
   }
 }
 

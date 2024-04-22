@@ -27,12 +27,26 @@ app.use(bodyParser.json());
 // cors configurations
 var cors = require("cors"); //import cors module
 
-app.use(
-  cors({
-    origin: "http://localhost:5173", // Allow this origin to make requests
-    credentials: true, // Allow cookies/session to be sent from the requesting client
-  })
-);
+const allowedOrigins = [
+  "*",
+  "http://localhost:5173/",
+  "http://localhost:5174/  , ",
+];
+
+// CORS middleware
+const corsOptions = {
+  origin: function (origin, callback) {
+    console.log("origin", origin);
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+// Use CORS middleware
+app.use(cors());
 
 // morgan configurations to print api request logs
 const morgan = require("morgan");
@@ -68,7 +82,6 @@ app.use((err, req, res, next) => {
     : err;
   res.status(err?.statusCode || 500).json(sendErrors);
 });
-
 
 // Connect MySQL database
 sequelize

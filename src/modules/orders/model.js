@@ -19,25 +19,19 @@ class Orders extends Model {
       foreignKey: "deleted_by",
       sourceKey: "id",
     });
-    Orders.belongsTo(db.Products, {
-      foreignKey: "product_id",
-      sourceKey: "id",
-    });
-    Orders.belongsTo(db.PrVariations, {
-      foreignKey: "variation_id",
-      sourceKey: "id",
-    });
     Orders.belongsTo(db.Addresses, {
       foreignKey: "shipping_address_id",
+      as : "shipping_address",
       sourceKey: "id",
     });
     Orders.belongsTo(db.Addresses, {
       foreignKey: "billing_address_id",
+      as : "billing_address",
       sourceKey: "id",
     });
     Orders.hasMany(db.OrItems, {
       foreignKey: "order_id",
-      as : "order"
+      as : "items"
     });
   }
 }
