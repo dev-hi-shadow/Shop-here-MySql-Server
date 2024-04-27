@@ -1,4 +1,5 @@
 module.exports = {
+  searchAttributes: ["name", "created_at"],
   shortCategoryAttr: ["id", "name", "description"],
   defaultAttributes: [
     "id",

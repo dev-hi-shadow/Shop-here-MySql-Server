@@ -1,3 +1,4 @@
+const { getTableFilters } = require("../../helpers");
 const {
   Products,
   PrVariations,
@@ -64,21 +65,24 @@ exports.GetProducts = async (req, res, next) => {
         },
         {
           model: Brands,
-          as : "brand"
+          as: "brand",
         },
         {
           model: Categories,
-          as : "category"
+          as: "category",
         },
         {
           model: SubCategories,
-          as : "sub_category"
+          as: "sub_category",
         },
         {
           model: Units,
-          as : "unit"
+          as: "unit",
         },
       ],
+      ...getTableFilters(req),
+      distinct:true
+
     };
     let products = null;
     if (req.params.id) products = await Products.findByPk(req.params.id, query);

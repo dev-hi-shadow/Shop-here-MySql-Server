@@ -1,6 +1,7 @@
 const { create } = require("./model");
 
 module.exports = {
+  searchAttributes: ["name", "created_at"],
   defaultAttributes: [
     "id",
     "name",
