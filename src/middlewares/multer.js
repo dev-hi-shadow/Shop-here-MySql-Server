@@ -5,7 +5,7 @@ const cloudinary = require("../services/cloudinary");
 const uuid = require("uuid").v4;
 
 const upload = (directory) => {
-  try {
+   try {
     return multer({
       storage: new CloudinaryStorage({
         cloudinary: cloudinary,
@@ -19,7 +19,23 @@ const upload = (directory) => {
       }),
     });
   } catch (error) {
-    next(error);
+     next(error);
+  }
+};
+
+/**
+ * Deletes a file from Cloudinary using its public ID.
+ * @param {string} publicId - The public ID of the file to delete.
+ * @param {function} next - The next middleware function in the express chain.
+ */
+
+exports.deleteFile = async (publicId) => {
+  try {
+    const result = await cloudinary.uploader.destroy(publicId);
+    console.log("Delete Result:", result);
+    return result;
+  } catch (error) {
+    throw error; // Rethrow error to be handled by caller
   }
 };
 

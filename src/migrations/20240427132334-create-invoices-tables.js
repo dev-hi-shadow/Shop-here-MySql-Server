@@ -3,21 +3,62 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("user_zip_codes", {
+    await queryInterface.createTable("invoices", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      zip_code: {
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+      invoice_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+      qb_bill_no: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+      due_date: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      order_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "order",
+          key: "id",
+        },
+      },
+      currency: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      is_deliverable: {
-        type: Sequelize.BOOLEAN,
+      invoice_status: {
+        type: Sequelize.STRING,
         allowNull: true,
-        defaultValue: false,
+      },
+      notes: {
+        type: Sequelize.TEXT,
+        allowNull: true,
       },
       created_by: {
         type: Sequelize.INTEGER,
@@ -29,7 +70,7 @@ module.exports = {
       },
       updated_by: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: "users",
           key: "id",
@@ -37,7 +78,7 @@ module.exports = {
       },
       deleted_by: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: "users",
           key: "id",
@@ -53,12 +94,11 @@ module.exports = {
       },
       deleted_at: {
         type: Sequelize.DATE,
-        allowNull: true,
-        defaultValue: null,
       },
     });
   },
+
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("user_zip_codes");
+    await queryInterface.dropTable("users");
   },
 };

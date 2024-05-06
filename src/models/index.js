@@ -23,6 +23,7 @@ const PrStockOut = require("../modules/product_stock_out/model");
 const Orders = require("../modules/orders/model");
 const OrItems = require("../modules/order-items/model");
 const QbConfig = require("../modules/quickbook-configuration/model");
+const UserZipCodes = require("../modules/user_zip_codes/model");
 
 const db = {
   Roles,
@@ -48,6 +49,7 @@ const db = {
   Orders,
   OrItems,
   QbConfig,
+  UserZipCodes
 };
 
 Object.keys(db).forEach((modelName) => {

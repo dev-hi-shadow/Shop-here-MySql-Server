@@ -10,65 +10,92 @@ const {
 } = require("../../models");
 const _ = require("lodash");
 
+const isAvailableStock = async (order_items) => {
+  return await Promise.all(
+    order_items.map(async (item) => {
+      try {
+        let query = {
+          where: {
+            product_id: item.product_id,
+            variation_id: item.variation_id,
+          },
+        };
+        let stockInRecords = await PrStockIn.findAll(query);
+        let stockOutRecords = await PrStockOut.findAll(query);
+
+        let totalStockIn = stockInRecords.reduce(
+          (sum, record) => sum + record.quantity,
+          0
+        );
+        let totalStockOut = stockOutRecords.reduce(
+          (sum, record) => sum + record.quantity,
+          0
+        );
+
+        let availableStock = totalStockIn - totalStockOut;
+        console.log({
+          variation_id: item.variation_id,
+          availableStock: availableStock,
+          isAvailableForOrder: availableStock >= item.quantity,
+        });
+        return {
+          variation_id: item.variation_id,
+          availableStock: availableStock,
+          isAvailableForOrder: availableStock >= item.quantity,
+        };
+      } catch (error) {
+        return {
+          isAvailableForOrder: false,
+        };
+      }
+    })
+  );
+};
+
 exports.CreateOrder = async (req, res, next) => {
   const transaction = await sequelize.transaction(); // Start a transaction
   try {
-    let isAvailableStock = await Promise.all(
-      req.body.order_items.map(async (item) => {
-        try {
-           let query = {
-            where: {
-              product_id: item.product_id,
-              variation_id: item.variation_id,
-            },
-          };
-          let StockIn = await PrStockIn.findOne(query);
-          console.log("🚀  StockIn:", StockIn);
-          let StockOut = await PrStockOut.findOne(query);
-          console.log("🚀  StockOut:", StockOut);
-          let availableStock =
-            StockIn.toJSON().quantity - StockOut.toJSON().quantity;
-          return {
-            variation_id: item.variation_id,
-            availableStock: availableStock,
-          };
-        } catch (error) {
-          console.error("Error fetching stock:", error);
-          throw error; // Rethrow the error to be caught later
-        }
-      })
+    const isHasStock = await isAvailableStock(req.body.order_items);
+    if (!isHasStock || isHasStock.some((item) => !item.isAvailableForOrder)) {
+      return res.status(422).json({
+        status: 422,
+        success: false,
+        message:
+          "Something went wrong!  Product quantity is lesser then you requested",
+      });
+    }
+
+    let user_id = req.isAdmin ? req.body.user_id : req.user_id;
+    const Order = await Orders.create(
+      {
+        user_id: user_id,
+        created_by: req.user_id,
+        ...req.body,
+      },
+      { transaction }
+    );
+    await OrItems.bulkCreate(
+      req.body.order_items.map((item) => ({
+        ...item,
+        created_by: req.user_id,
+        order_id: Order.id,
+      })),
+      { transaction }
     );
 
-    console.log("Available stock for each item:", isAvailableStock);
+    
 
-    // let user_id = req.isAdmin ? req.body.user_id : req.user_id;
-    // const Order = await Orders.create(
-    //   {
-    //     user_id: user_id,
-    //     created_by: req.user_id,
-    //     ...req.body,
-    //   },
-    //   { transaction }
-    // );
-    // await OrItems.bulkCreate(
-    //   req.body.order_items.map((item) => ({
-    //     ...item,
-    //     created_by: req.user_id,
-    //     order_id: Order.id,
-    //   })),
-    //   { transaction }
-    // );
-    // await PrStockOut.bulkCreate(
-    //   req.body.order_items.map((item) => ({
-    //     ...item,
-    //     created_by: req.user_id,
-    //     order_id: Order.id,
-    //     destination: item.destination || "ORDER_FROM_CUSTOMER",
-    //     created_by: req.user_id,
-    //     updated_by: req.user_id,
-    //   })),
-    //   { transaction }
-    // );
+    await PrStockOut.bulkCreate(
+      req.body.order_items.map((item) => ({
+        ...item,
+        created_by: req.user_id,
+        order_id: Order.id,
+        destination: item.destination || "ORDER_FROM_CUSTOMER",
+        created_by: req.user_id,
+        updated_by: req.user_id,
+      })),
+      { transaction }
+    );
 
     await transaction.commit();
 

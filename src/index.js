@@ -16,7 +16,7 @@ const bodyParser = require("body-parser");
 
 // Initialize Middlewares
 app.use(express.json()); // parse JSON data in request body
-app.use(express.urlencoded({ extended: true })); // parse URL-encoded data in request body
+app.use(express.urlencoded({ limit: "*", extended: true })); // parse URL-encoded data in request body
 
 // template engine configuration
 app.set("view engine", "ejs");

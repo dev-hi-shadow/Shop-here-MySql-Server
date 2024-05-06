@@ -8,5 +8,6 @@ module.exports = {
     "is_published",
     "created_at",
     "description",
+    "image",
   ],
 };

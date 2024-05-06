@@ -1,4 +1,5 @@
 const { JoiValidator } = require("../../middlewares");
+const upload = require("../../middlewares/multer");
 const {
   createCategoryJoiValidation,
   updateCategoryJoiValidation,
@@ -15,10 +16,10 @@ const router = require("express").Router();
 router.route("/").get(getCategories);
 router
   .route("/create")
-  .post(JoiValidator(createCategoryJoiValidation), CreateCategory);
+  .post(upload("categories").single("image"), CreateCategory);
 router
   .route("/update/:id")
-  .put(JoiValidator(updateCategoryJoiValidation), updateCategory);
+  .put(upload("categories").single("image"), updateCategory);
 
 router.route("/delete/:id").delete(deleteCategory);
 
