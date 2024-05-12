@@ -5,7 +5,7 @@ class Files extends Model {
   static associate(db) {
     Files.belongsTo(db.Users, {
       foreignKey: "created_by",
-      sourceKey: "id",  
+      sourceKey: "id",
     });
     Files.belongsTo(db.Users, {
       foreignKey: "updated_by",
@@ -17,7 +17,7 @@ class Files extends Model {
     });
     Files.belongsTo(db.Products, {
       foreignKey: "product_id",
-      sourceKey: "id",
+       sourceKey: "id",
     });
   }
 }

@@ -1,7 +1,7 @@
 const { getFileNameFromFileObject } = require("../../helpers");
 const { deleteFile } = require("../../middlewares/multer");
 const { Brands } = require("../../models");
-const { defaultAttributes } = require("./attribute");
+const { defaultAttributes } = require("./attributes");
 const cloudinary = require("../../services/cloudinary");
 
 exports.CreateBrand = async (req, res, next) => {

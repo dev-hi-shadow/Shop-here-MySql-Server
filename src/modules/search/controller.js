@@ -10,7 +10,7 @@ const { getTableFilters } = require("../../helpers");
 const categoryAttributes = require("../categories/attributes");
 const subcategoryAttributes = require("../sub-categories/attributes");
 const productsAttributes = require("../products/attributes");
-const brandsAttribute = require("../brand/attribute");
+const brandsAttribute = require("../brand/attributes");
 const prVariationsAttributes = require("../product_variations/attributes");
 
 exports.Search = async (req, res, next) => {
@@ -89,7 +89,7 @@ exports.Search = async (req, res, next) => {
       ],
       distinct: true,
       attributes: productsAttributes.searchAttributes,
-     });
+    });
 
     res.status(200).json({
       status: 200,

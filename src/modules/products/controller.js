@@ -1,4 +1,11 @@
-const { getTableFilters } = require("../../helpers");
+const { sequelize } = require("../../config/mysql");
+const { getTableFilters, getFileNameFromFileObject } = require("../../helpers");
+const PrVariationsAttr = require("../product_variations/attributes");
+const brandAttributes = require("../brand/attributes");
+const categoriesAttributes = require("../categories/attributes");
+const subcategoriesAttributes = require("../sub-categories/attributes");
+const filesAttributes = require("../files/attributes");
+const unitsAttributes = require("../units/attributes");
 const {
   Products,
   PrVariations,
@@ -7,51 +14,77 @@ const {
   SubCategories,
   Categories,
   Units,
+  Files,
+  PrVariationsAttributes,
 } = require("../../models");
 const _ = require("lodash");
 exports.AddProduct = async (req, res, next) => {
+  const transaction = await sequelize.transaction();
   try {
-    console.log("req.files", req.files);
+    let images,
+      main_image = null;
+    if (req.files) {
+      main_image = getFileNameFromFileObject(req.files.main_image);
+      images = _.map(req.files.file, (item) => getFileNameFromFileObject(item));
+    }
+    const product = await Products.create(
+      {
+        ...req.body,
+        main_image,
+        created_by: req.user_id,
+      },
+      { transaction }
+    );
+    if (!product) {
+      return res.status(400).json({
+        status: 400,
+        success: false,
+        message: "Something went wrong",
+        data: null,
+      });
+    }
+    if (images.length) {
+      const uploadImage = _.map(images, (item) => ({
+        product_id: product.id,
+        file_name: item,
+        created_by: req.user_id,
+      }));
+      images = await Files.bulkCreate(uploadImage, { transaction });
+    }
+    const product_variation = _.map(req.body.variations, (item) => ({
+      ...item,
+      created_by: req.user_id,
+      updated_by: req.user_id,
+      product_id: product.id,
+    }));
+    await PrVariations.bulkCreate(product_variation, { transaction });
+    let faqs = null;
+    if (req.body.faqs) {
+      faqs = _.map(req.body.faqs, (item) => ({
+        ...item,
+        created_by: req.user_id,
+        updated_by: req.user_id,
+        product_id: product.id,
+      }));
+      faqs = await Faqs.bulkCreate(faqs, { transaction });
+    }
 
-    // const product = await Products.create({
-    //   ...req.body,
-    //   created_by: req.user_id,
-    // });
-    // if (!product) {
-    //   return res.status(400).json({
-    //     status: 400,
-    //     success: false,
-    //     message: "Something went wrong",
-    //     data: null,
-    //   });
-    // }
-    // const product_variation = _.map(req.body.variations, (item) => ({
-    //   ...item,
-    //   created_by: req.user_id,
-    //   updated_by: req.user_id,
-    //   product_id: product.id,
-    // }));
-    // const ProductVariations = await PrVariations.bulkCreate(product_variation);
-    // let faqs = null;
-    // if (req.body.faqs) {
-    //   faqs = _.map(req.body.faqs, (item) => ({
-    //     ...item,
-    //     created_by: req.user_id,
-    //     updated_by: req.user_id,
-    //     product_id: product.id,
-    //   }));
-    //   faqs = await Faqs.bulkCreate(faqs);
-    // }
+    transaction.commit();
 
-    res.status(200).json({
-      status: 200,
+    res.status(201).json({
+      status: 201,
       success: true,
       message: "Product added successfully",
       data: {
-        files: req.files,
+        ...product,
+        variations: product_variation,
+        faqs,
+        images,
+        main_image,
       },
     });
   } catch (error) {
+    transaction.rollback();
     next(error);
   }
 };
@@ -62,30 +95,41 @@ exports.GetProducts = async (req, res, next) => {
       include: [
         {
           model: PrVariations,
+          as: "variations",
+          attributes: PrVariationsAttr.default,
         },
         {
           model: Brands,
           as: "brand",
+          attributes: brandAttributes.defaultAttributes,
         },
         {
           model: Categories,
           as: "category",
+          attributes: categoriesAttributes.defaultAttributes,
         },
         {
           model: SubCategories,
           as: "sub_category",
+          attributes: subcategoriesAttributes.defaultAttributes,
         },
         {
           model: Units,
           as: "unit",
+          attributes: unitsAttributes.defaultAttributes,
+        },
+        {
+          model: Files,
+          as: "files",
+          attributes: filesAttributes.defaultAttributes,
         },
       ],
-      ...getTableFilters(req),
       distinct: true,
     };
     let products = null;
     if (req.params.id) products = await Products.findByPk(req.params.id, query);
     else products = await Products.findAndCountAll(query);
+
     res.status(200).json({
       status: 200,
       success: true,
@@ -97,14 +141,70 @@ exports.GetProducts = async (req, res, next) => {
   }
 };
 
-exports.uploadImages = (req, res, next) => {
+exports.UpdateProduct = async (req, res, next) => {
+  // const transaction = await sequelize.transaction();
   try {
-    console.log("req.files", req.files);
-    res.status(200).json({
-      status: 200,
+    let images,
+      main_image = null;
+    if (req.files) {
+      main_image = getFileNameFromFileObject(req.files.main_image);
+      images = _.map(req.files.file, (item) => getFileNameFromFileObject(item));
+    }
+    const product = await Products.create(
+      {
+        ...req.body,
+        main_image,
+        created_by: req.user_id,
+      },
+      { transaction }
+    );
+    if (!product) {
+      return res.status(400).json({
+        status: 400,
+        success: false,
+        message: "Something went wrong",
+        data: null,
+      });
+    }
+    if (images.length) {
+      const uploadImage = _.map(images, (item) => ({
+        product_id: product.id,
+        file_name: item,
+        created_by: req.user_id,
+      }));
+      images = await Files.bulkCreate(uploadImage, { transaction });
+    }
+    const product_variation = _.map(req.body.variations, (item) => ({
+      ...item,
+      created_by: req.user_id,
+      updated_by: req.user_id,
+      product_id: product.id,
+    }));
+    await PrVariations.bulkCreate(product_variation, { transaction });
+    let faqs = null;
+    if (req.body.faqs) {
+      faqs = _.map(req.body.faqs, (item) => ({
+        ...item,
+        created_by: req.user_id,
+        updated_by: req.user_id,
+        product_id: product.id,
+      }));
+      faqs = await Faqs.bulkCreate(faqs, { transaction });
+    }
+
+    transaction.commit();
+
+    res.status(201).json({
+      status: 201,
       success: true,
-      message: "Images uploaded successfully",
-      data: req.files,
+      message: "Product added successfully",
+      data: {
+        ...product,
+        variations: product_variation,
+        faqs,
+        images,
+        main_image,
+      },
     });
   } catch (error) {
     next(error);

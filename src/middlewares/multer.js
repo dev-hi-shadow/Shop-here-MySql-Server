@@ -17,17 +17,25 @@ const upload = (directory, fieldsArray) => {
           public_id: (req, file) => `${md5(uuid())}`,
         },
       }),
+      limits: { fileSize: 1e6 }, 
+      fileFilter: (req, file, cb) => {
+         const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'mov', "webp"]; 
+        const extension = file.originalname.split('.').pop().toLowerCase();
+        if (allowedExtensions.includes(extension)) {
+          cb(null, true);
+        } else {
+          cb(new multer.MulterError('LIMIT_FILE_TYPE', 'Invalid file type'), false);
+        }
+      },
     }).fields(
-      fieldsArray.map((field) => {
-        return {
-          limit: typeof field == "object" ? field.limit : 1,
-          name: typeof field == "object" ? field.name : field,
-        };
-      })
+      fieldsArray.map((field) => ({
+        limit: typeof field === 'object' ? field.limit : 1,
+        name: typeof field === 'object' ? field.name : field,
+      }))
     );
   } catch (error) {
-    console.log("🚀  error:", error);
-    return error;
+    console.error(" Error in Multer configuration:", error);
+    return error; // Or throw the error for better handling
   }
 };
 
@@ -40,7 +48,6 @@ const upload = (directory, fieldsArray) => {
 exports.deleteFile = async (publicId) => {
   try {
     const result = await cloudinary.uploader.destroy(publicId);
-    console.log("Delete Result:", result);
     return result;
   } catch (error) {
     throw error; // Rethrow error to be handled by caller
