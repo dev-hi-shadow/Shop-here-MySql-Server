@@ -35,7 +35,7 @@ class Products extends Model {
     });
     Products.hasMany(db.PrVariations, {
       foreignKey: "product_id",
-      as : "variations"
+      as: "variations",
     });
     Products.hasMany(db.PrStockIn, {
       foreignKey: "product_id",
@@ -49,6 +49,10 @@ class Products extends Model {
     });
     Products.hasMany(db.OrItems, {
       foreignKey: "product_id",
+    });
+    Products.hasMany(db.Files, {
+      foreignKey: "product_id",
+      as: "files",
     });
   }
 }

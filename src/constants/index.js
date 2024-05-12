@@ -17,6 +17,12 @@ const QUEUE_INFO = {
   },
 };
 
+const CLOUDINARY_FOLDER = (body) => {
+  console.log('body.type.split("_")[0]', body.type.split("_")[0]);
+  return body.type.split("_")[0];
+};
+
 module.exports = {
   QUEUE_INFO,
+  CLOUDINARY_FOLDER,
 };

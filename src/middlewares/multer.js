@@ -4,8 +4,8 @@ const md5 = require("md5");
 const cloudinary = require("../services/cloudinary");
 const uuid = require("uuid").v4;
 
-const upload = (directory) => {
-   try {
+const upload = (directory, fieldsArray) => {
+  try {
     return multer({
       storage: new CloudinaryStorage({
         cloudinary: cloudinary,
@@ -17,9 +17,17 @@ const upload = (directory) => {
           public_id: (req, file) => `${md5(uuid())}`,
         },
       }),
-    });
+    }).fields(
+      fieldsArray.map((field) => {
+        return {
+          limit: typeof field == "object" ? field.limit : 1,
+          name: typeof field == "object" ? field.name : field,
+        };
+      })
+    );
   } catch (error) {
-     next(error);
+    console.log("🚀  error:", error);
+    return error;
   }
 };
 

@@ -7,6 +7,6 @@ const router = require("express").Router();
 
 router
   .route("/signup")
-  .post(upload("profile_pictures").single("profile_picture"), Register);
+  .post(upload("profile_pictures", ["profile_picture"]), Register);
 router.route("/signin").post(JoiValidator(loginJoiSchema), login);
 module.exports = router;

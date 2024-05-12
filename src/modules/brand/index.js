@@ -9,8 +9,8 @@ const {
 const router = require("express").Router();
 
 router.route("/").get(GetBrands);
-router.route("/create").post(upload("brands").single("image"), CreateBrand);
-router.route("/update/:id").put(upload("brands").single("image"), UpdateBrand);
+router.route("/create").post(upload("brands", ["image"]), CreateBrand);
+router.route("/update/:id").put(upload("brands", ["image"]), UpdateBrand);
 router.route("/delete/:id").delete(DeleteBrand);
 
 module.exports = router;

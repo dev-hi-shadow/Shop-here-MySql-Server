@@ -25,4 +25,4 @@ router.use("/sub-categories-taxes", require("../modules/sub-category-taxes"));
 router.use("/stock-in", require("../modules/product_stock_in"));
 router.use("/orders", require("../modules/orders"));
 router.use("/zip-codes", require("../modules/user_zip_codes"));
-module.exports = router;
+ module.exports = router;

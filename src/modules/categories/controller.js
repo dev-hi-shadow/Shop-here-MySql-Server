@@ -1,11 +1,25 @@
 const { Categories } = require("../../models");
 const { Op } = require("sequelize");
 const { defaultAttributes } = require("./attributes");
+const { getFileNameFromFileObject } = require("../../helpers");
 
 exports.CreateCategory = async (req, res, next) => {
   try {
+    let { image, banner } = req.files;
+    image = getFileNameFromFileObject(image);
+    banner = getFileNameFromFileObject(banner);
+
+    if (!banner || !image) {
+      return res.status(422).json({
+        status: 422,
+        success: false,
+        message: "Please upload an image and banner.",
+      });
+    }
     const category = await Categories.create({
       ...req.body,
+      image,
+      banner,
       updated_by: req.user_id,
       created_by: req.user_id,
     });

@@ -20,9 +20,12 @@ exports.formatNumberForTwilio = (number) => {
 };
 
 exports.getFileNameFromFileObject = (fileObject) => {
-  return fileObject.path;
+  if (typeof fileObject === "object") {
+    return fileObject[0].path;
+  } else {
+    return fileObject.path;
+  }
 };
-
 // exports.getTableFilters = (req = {}, params = {}) => {
 //   const {
 //     limit = 10,
