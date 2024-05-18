@@ -25,6 +25,9 @@ const OrItems = require("../modules/order-items/model");
 const QbConfig = require("../modules/quickbook-configuration/model");
 const UserZipCodes = require("../modules/user_zip_codes/model");
 const Files = require("../modules/files/model");
+const RatingReviews = require("../modules/ratings-reviews/model");
+const Offers = require("../modules/offers/model");
+
 
 const db = {
   Roles,
@@ -51,7 +54,9 @@ const db = {
   OrItems,
   QbConfig,
   UserZipCodes,
-  Files
+  Files,
+  RatingReviews,
+  Offers
 };
 
 Object.keys(db).forEach((modelName) => {

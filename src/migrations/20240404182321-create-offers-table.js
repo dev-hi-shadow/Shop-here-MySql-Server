@@ -10,11 +10,15 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
       },
+      group: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       title: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      description: {
+      terms_conditions: {
         type: Sequelize.TEXT,
         allowNull: true,
       },
@@ -70,8 +74,8 @@ module.exports = {
       },
       usage_limit_per_user: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 1,
+        allowNull: true,
+        defaultValue: null,
       },
       usage_limit_per_product: {
         type: Sequelize.INTEGER,
@@ -81,7 +85,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true,
       },
-       for_new_customers_only: {
+      for_new_customers_only: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
@@ -96,7 +100,7 @@ module.exports = {
       },
       deleted_by: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "users",
           key: "id",
@@ -104,7 +108,7 @@ module.exports = {
       },
       updated_by: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model: "users",
           key: "id",

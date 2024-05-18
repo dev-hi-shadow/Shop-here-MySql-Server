@@ -1,5 +1,5 @@
 const { Addresses } = require("../../models");
-const { defaultAttributes } = require("./attributes");
+const AttributesAttr  = require("./attributes");
 
 exports.AddAddress = async (req, res, next) => {
   try {
@@ -26,7 +26,7 @@ exports.GetAddresses = async (req, res, next) => {
       where: {
         user_id: req.user_id,
       },
-      attributes: defaultAttributes,
+      attributes: AttributesAttr.default,
     });
     res.status(200).json({
       status: 200,

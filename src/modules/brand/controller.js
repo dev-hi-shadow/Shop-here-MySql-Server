@@ -1,7 +1,7 @@
 const { getFileNameFromFileObject } = require("../../helpers");
 const { deleteFile } = require("../../middlewares/multer");
 const { Brands } = require("../../models");
-const { defaultAttributes } = require("./attributes");
+const brandAttribute  = require("./attributes");
 const cloudinary = require("../../services/cloudinary");
 
 exports.CreateBrand = async (req, res, next) => {
@@ -34,7 +34,7 @@ exports.CreateBrand = async (req, res, next) => {
 exports.GetBrands = async (req, res, next) => {
   try {
     const brands = await Brands.findAndCountAll({
-      attributes: defaultAttributes,
+      attributes: brandAttribute.default,
     });
     res.status(200).json({
       status: 200,

@@ -1,5 +1,5 @@
 module.exports = {
-  defaultAttributes: [
+  default: [
     "id",
     "sub_category_id",
     "tax_id",

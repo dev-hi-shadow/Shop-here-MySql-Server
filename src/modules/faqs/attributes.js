@@ -1,3 +1,4 @@
 module.exports = {
-  defaultAttributes: ["id", "question", "answer", "product_id"],
+  default: ["id", "question", "answer", "product_id"],
+  productOverview: ["question", "answer"],
 };

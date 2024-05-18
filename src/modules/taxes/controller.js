@@ -1,5 +1,5 @@
 const { Taxes } = require("../../models");
-const { defaultAttributes } = require("./attributes");
+const taxesAttributes  = require("./attributes");
 
 exports.CreateTax = async (req, res, next) => {
   try {
@@ -22,7 +22,7 @@ exports.CreateTax = async (req, res, next) => {
 exports.GetTaxes = async (req, res, next) => {
   try {
     const tax = await Taxes.findAndCountAll({
-      attributes: defaultAttributes,
+      attributes: taxesAttributes.default,
     });
     res.status(200).json({
       status: 200,

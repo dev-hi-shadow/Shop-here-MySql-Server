@@ -1,7 +1,7 @@
 module.exports = {
   searchAttributes: ["name", "created_at"],
   shortCategoryAttr: ["id", "name", "description"],
-  defaultAttributes: [
+  default: [
     "id",
     "description",
     "name",
@@ -20,4 +20,5 @@ module.exports = {
     "created_by",
     "deleted_at",
   ],
+  productOverview: ["name", "image"],
 };

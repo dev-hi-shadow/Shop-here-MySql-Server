@@ -1,5 +1,5 @@
 const { Units } = require("../../models");
-const { defaultAttributes } = require("./attributes");
+const unitsAttributes = require("./attributes");
 
 exports.CreateUnit = async (req, res, next) => {
   try {
@@ -22,7 +22,7 @@ exports.CreateUnit = async (req, res, next) => {
 exports.GetUnits = async (req, res, next) => {
   try {
     const units = await Units.findAndCountAll({
-      attributes: defaultAttributes,
+      attributes: unitsAttributes.default,
     });
     res.status(200).json({
       status: 200,

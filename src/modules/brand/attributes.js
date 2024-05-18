@@ -2,7 +2,7 @@ const { create } = require("./model");
 
 module.exports = {
   searchAttributes: ["name", "created_at"],
-  defaultAttributes: [
+  default: [
     "id",
     "name",
     "is_published",
@@ -10,4 +10,6 @@ module.exports = {
     "description",
     "image",
   ],
+  productOverview: ["name", "image"],
+  
 };

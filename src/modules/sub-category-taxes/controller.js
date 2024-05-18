@@ -1,9 +1,7 @@
 const { SubCategoryTax, SubCategories, Taxes } = require("../../models");
-const { defaultAttributes } = require("./attributes");
-const {
-  defaultAttributes: SubCategoryAttributes,
-} = require("../sub-categories/attributes");
-const { defaultAttributes: TaxAttributes } = require("../taxes/attributes");
+const subCategoryTaxAttributes = require("./attributes");
+const SubCategoryAttributes = require("../sub-categories/attributes");
+const  TaxAttributes = require("../taxes/attributes");
 
 exports.AddSubCategoryTax = async (req, res, next) => {
   try {
@@ -26,17 +24,17 @@ exports.AddSubCategoryTax = async (req, res, next) => {
 exports.GetSubCategoryTaxes = async (req, res, next) => {
   try {
     const subcategory_tax = await SubCategoryTax.findAndCountAll({
-      attributes: defaultAttributes,
+      attributes: subCategoryTaxAttributes.default,
       include: [
         {
           model: SubCategories,
           as: "sub_category",
-          attributes: SubCategoryAttributes,
+          attributes: SubCategoryAttributes.default,
         },
         {
           model: Taxes,
           as: "tax",
-          attributes: TaxAttributes,
+          attributes: TaxAttributes.default,
         },
       ],
     });

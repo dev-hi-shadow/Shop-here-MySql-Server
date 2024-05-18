@@ -1,3 +1,3 @@
 module.exports = {
-  defaultAttributes: ["name",  "created_at"],
+  default: ["name",  "created_at"],
 };

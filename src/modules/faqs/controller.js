@@ -1,5 +1,5 @@
 const { Faqs } = require("../../models");
-const { defaultAttributes } = require("./attributes");
+const faqAttributes = require("./attributes");
 
 const CreateFaq = async (req, res, next) => {
   try {
@@ -22,7 +22,7 @@ const GetFaqs = async (req, res, next) => {
     if (req.params.pid) where.product_id = req.params.pid;
     const faqs = await Faqs.findAndCountAll({
       where,
-      attributes: defaultAttributes,
+      attributes: faqAttributes.default,
     });
     res.status(200).json({
       status: 200,

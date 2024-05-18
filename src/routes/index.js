@@ -7,6 +7,7 @@ router.use("/faqs", require("../modules/faqs/public_routes"));
 router.use("/products", require("../modules/products/public_routes"));
 router.use("/quickbook", require("../modules/quickbook-configuration"));
 router.use("/search", require("../modules/search/public_routes"));
+router.use("/offers", require("../modules/offers/public_routes.js"));
 
 router.use(verifyAuthToken);
 router.use("/faqs", require("../modules/faqs"));
@@ -25,4 +26,6 @@ router.use("/sub-categories-taxes", require("../modules/sub-category-taxes"));
 router.use("/stock-in", require("../modules/product_stock_in"));
 router.use("/orders", require("../modules/orders"));
 router.use("/zip-codes", require("../modules/user_zip_codes"));
+router.use("/offers", require("../modules/offers"));
+
  module.exports = router;

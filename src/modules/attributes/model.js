@@ -19,6 +19,10 @@ class Attributes extends Model {
       foreignKey: "deleted_by",
       sourceKey: "id",
     });
+    Attributes.hasMany(db.PrVariationsAttributes, {
+      foreignKey: "attribute_id",
+    });
+    
   }
 }
 Attributes.init(

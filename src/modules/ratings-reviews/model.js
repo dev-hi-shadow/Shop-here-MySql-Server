@@ -1,20 +1,15 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
 
-class PrVariationsAttributes extends Model {
+class RatingReviews extends Model {
   static associate(db) {
-    PrVariationsAttributes.belongsTo(db.Attributes, {
-      as: "variation_attributes", // Correcting the alias to singular
-      foreignKey: "attribute_id",
-    });
-    PrVariationsAttributes.belongsTo(db.PrVariations, {
-      as: "variation", // Correcting the alias to singular
-      foreignKey: "variation_id",
+    RatingReviews.belongsTo(db.Products, {
+       foreignKey: "product_id",
     });
   }
 }
 
-PrVariationsAttributes.init(
+RatingReviews.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -22,34 +17,26 @@ PrVariationsAttributes.init(
       allowNull: false,
       autoIncrement: true,
     },
-    variation_id: {
+    product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "pr_variations",
+        model: "products",
         key: "id",
       },
     },
-    attribute_id: {
-      type: DataTypes.INTEGER,
+    rating: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    comment: {
+      type: DataTypes.TEXT,
       allowNull: true,
-      references: {
-        model: "attributes",
-        key: "id",
-      },
     },
-
     created_by: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: "users",
-        key: "id",
-      },
-    },
-    updated_by: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
       references: {
         model: "users",
         key: "id",
@@ -63,12 +50,20 @@ PrVariationsAttributes.init(
         key: "id",
       },
     },
+    updated_by: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: "users",
+        key: "id",
+      },
+    },
   },
   {
     sequelize,
-    tableName: "pr_variation_attributes",
-    modelName: "PrVariationsAttributes",
+    tableName: "rating_reviews",
+    modelName: "RatingReviews",
   }
 );
 
-module.exports = PrVariationsAttributes;
+module.exports = RatingReviews;

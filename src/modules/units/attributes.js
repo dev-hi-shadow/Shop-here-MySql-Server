@@ -1,3 +1,5 @@
 module.exports = {
-  defaultAttributes: ["name", "short_form", "id"],
+  default: ["name", "short_form", "id"],
+  productOverview: ["name"],
+
 };

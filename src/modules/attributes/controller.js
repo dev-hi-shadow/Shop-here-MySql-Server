@@ -1,6 +1,5 @@
 const { Attributes } = require("../../models");
-const { defaultAttributes } = require("./attributes");
-
+ 
 exports.AddAttribte = async (req, res, next) => {
   try {
     const attribute = await Attributes.create({

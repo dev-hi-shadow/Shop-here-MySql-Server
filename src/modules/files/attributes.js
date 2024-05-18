@@ -1,3 +1,4 @@
 module.exports = {
-    defaultAttributes : ["file_name"]
-}
+  default: ["file_name"],
+  productOverview: ["file_name"],
+};

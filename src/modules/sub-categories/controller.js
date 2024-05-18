@@ -1,6 +1,6 @@
 const { SubCategories, Categories, SubCategoryTax } = require("../../models");
 const { Op } = require("sequelize");
-const { defaultAttributes } = require("./attributes");
+const subCategoryAttributes = require("./attributes");
 const { sequelize } = require("../../config/mysql");
 const { shortCategoryAttr } = require("../categories/attributes");
 
@@ -32,7 +32,7 @@ exports.getSubCategories = async (req, res, next) => {
           attributes: shortCategoryAttr,
         },
       ],
-      attributes: defaultAttributes,
+      attributes: subCategoryAttributes.default,
     });
 
     res.status(200).json({

@@ -1,6 +1,6 @@
 const { Categories } = require("../../models");
 const { Op } = require("sequelize");
-const { defaultAttributes } = require("./attributes");
+const categoryAttr  = require("./attributes");
 const { getFileNameFromFileObject } = require("../../helpers");
 
 exports.CreateCategory = async (req, res, next) => {
@@ -37,7 +37,7 @@ exports.CreateCategory = async (req, res, next) => {
 exports.getCategories = async (req, res, next) => {
   try {
     const categories = await Categories.findAndCountAll({
-      attributes: defaultAttributes,
+      attributes: categoryAttr.default,
       limit: 1,
     });
     res.status(200).json({

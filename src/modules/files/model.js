@@ -15,8 +15,8 @@ class Files extends Model {
       foreignKey: "deleted_by",
       sourceKey: "id",
     });
-    Files.belongsTo(db.Products, {
-      foreignKey: "product_id",
+    Files.belongsTo(db.PrVariations, {
+      foreignKey: "variation_id",
        sourceKey: "id",
     });
   }
@@ -29,11 +29,11 @@ Files.init(
       allowNull: false,
       autoIncrement: true,
     },
-    product_id: {
+    variation_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "products",
+        model: "variation",
         key: "id",
       },
     },

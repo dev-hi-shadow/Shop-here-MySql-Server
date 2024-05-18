@@ -1,5 +1,5 @@
 module.exports = {
-  defaultAttributes: [
+  default: [
     "id",
     "address",
     "state",
