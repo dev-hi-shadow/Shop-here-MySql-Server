@@ -4,7 +4,17 @@ const { sequelize } = require("../../config/mysql");
 class RatingReviews extends Model {
   static associate(db) {
     RatingReviews.belongsTo(db.Products, {
-       foreignKey: "product_id",
+      foreignKey: "product_id",
+    });
+    RatingReviews.belongsTo(db.Users, {
+      foreignKey: "created_by",
+      as : "rating_by"
+    });
+    RatingReviews.belongsTo(db.Users, {
+      foreignKey: "updated_by",
+    });
+    RatingReviews.belongsTo(db.Users, {
+      foreignKey: "deleted_by",
     });
   }
 }

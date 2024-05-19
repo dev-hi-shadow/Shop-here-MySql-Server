@@ -4,11 +4,11 @@ const { sequelize } = require("../../config/mysql");
 class PrVariationsAttributes extends Model {
   static associate(db) {
     PrVariationsAttributes.belongsTo(db.Attributes, {
-      as: "variation_attributes", // Correcting the alias to singular
+      as: "attributes", 
       foreignKey: "attribute_id",
     });
     PrVariationsAttributes.belongsTo(db.PrVariations, {
-      as: "variation", // Correcting the alias to singular
+      as: "variation",
       foreignKey: "variation_id",
     });
   }

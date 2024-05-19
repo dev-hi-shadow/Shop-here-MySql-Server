@@ -17,7 +17,8 @@ class PrVariations extends Model {
       foreignKey: "deleted_by",
     });
     PrVariations.hasMany(db.PrVariationsAttributes, {
-      foreignKey: "variation_id",
+       foreignKey: "variation_id",
+       as : "variation_attributes"
     });
     PrVariations.hasMany(db.OrItems, {
       foreignKey: "variation_id",

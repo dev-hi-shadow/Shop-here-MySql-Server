@@ -48,6 +48,14 @@ Users.init(
       allowNull: false,
       unique: true,
     },
+    display_name: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return `${this.getDataValue("first_name") || ""} ${
+          this.getDataValue("last_name") || ""
+        }`;
+      },
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,

@@ -8,6 +8,8 @@ const filesAttributes = require("../files/attributes");
 const unitsAttributes = require("../units/attributes");
 const ratingReviewsAttributes = require("../ratings-reviews/attributes");
 const PrVariationsAttributesAttr = require("../product_variation_attributes/attributes");
+const AttributesAttr = require("../attributes/attributes");
+const usersAttributes = require("../users/attributes");
 const {
   Products,
   PrVariations,
@@ -19,6 +21,8 @@ const {
   Files,
   PrVariationsAttributes,
   RatingReviews,
+  Attributes,
+  Users,
 } = require("../../models");
 const _ = require("lodash");
 exports.AddProduct = async (req, res, next) => {
@@ -111,7 +115,24 @@ exports.GetProducts = async (req, res, next) => {
             {
               model: PrVariationsAttributes,
               as: "variation_attributes",
-              attributes: PrVariationsAttributesAttr[type],
+              // attributes : PrVariationsAttributesAttr[type],
+              include: [
+                {
+                  model: Attributes,
+                  as: "attributes",
+                  // attributes: AttributesAttr[type],
+                  include: [
+                    {
+                      model: Attributes,
+                      as: "attribute",
+                    },
+                  ],
+                },
+                {
+                  model: PrVariations,
+                  as: "variation",
+                },
+              ],
             },
           ],
         },
@@ -119,6 +140,13 @@ exports.GetProducts = async (req, res, next) => {
           model: RatingReviews,
           as: "rating_reviews",
           attributes: ratingReviewsAttributes[type],
+          include: [
+            {
+              model: Users,
+              as  : "rating_by",
+              attributes: usersAttributes[type],
+             }
+          ],
         },
         {
           model: Brands,

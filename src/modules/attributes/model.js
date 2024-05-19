@@ -21,8 +21,8 @@ class Attributes extends Model {
     });
     Attributes.hasMany(db.PrVariationsAttributes, {
       foreignKey: "attribute_id",
+      as: "attributes",
     });
-    
   }
 }
 Attributes.init(

@@ -1,10 +1,10 @@
 module.exports = {
-  searchAttributes: ["variation_name", "product_id", "created_at"],
-  default: ["variation_name", "product_id", "created_at"],
+  searchAttributes: ["id", "variation_name", "product_id", "created_at"],
+  default: ["id", "variation_name", "product_id", "created_at"],
   productOverview: [
+    "id",
     "variation_name",
     "product_id",
-    "created_at",
     "retail_price",
     "special_price",
     "weight",
