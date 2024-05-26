@@ -23,6 +23,9 @@ class PrVariations extends Model {
     PrVariations.hasMany(db.OrItems, {
       foreignKey: "variation_id",
     });
+    PrVariations.hasMany(db.CartItems, {
+      foreignKey: "variation_id",
+    });
   }
 }
 
@@ -109,6 +112,14 @@ PrVariations.init(
     sequelize,
     tableName: "pr_variations",
     modelName: "PrVariations",
+    hooks: {
+      afterDestroy: async (instance, options) => {
+        if (options?.deleted_by) {
+          instance.setDataValue("deleted_by", options?.deleted_by);
+          await instance.save();
+        }
+      },
+    },
   }
 );
 

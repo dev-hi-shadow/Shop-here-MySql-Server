@@ -17,12 +17,14 @@ const QUEUE_INFO = {
   },
 };
 
+const ROLES = ["SUPER_ADMIN", "ADMIN", "SELLER", "CUSTOMER"];
+
 const CLOUDINARY_FOLDER = (body) => {
-  console.log('body.type.split("_")[0]', body.type.split("_")[0]);
   return body.type.split("_")[0];
 };
 
 module.exports = {
   QUEUE_INFO,
   CLOUDINARY_FOLDER,
+  ROLES,
 };

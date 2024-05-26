@@ -23,9 +23,10 @@ router.use("/taxes", require("../modules/taxes"));
 router.use("/units", require("../modules/units"));
 router.use("/products", require("../modules/products"));
 router.use("/sub-categories-taxes", require("../modules/sub-category-taxes"));
-router.use("/stock-in", require("../modules/product_stock_in"));
+router.use("/stock-in", require("../modules/product-stock-in/index.js"));
 router.use("/orders", require("../modules/orders"));
-router.use("/zip-codes", require("../modules/user_zip_codes"));
+router.use("/zip-codes", require("../modules/user-zip-codes/index.js"));
 router.use("/offers", require("../modules/offers"));
+router.use("/cart", require("../modules/cart-items"));
 
- module.exports = router;
+module.exports = router;

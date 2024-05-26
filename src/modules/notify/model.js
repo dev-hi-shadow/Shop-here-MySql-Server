@@ -442,6 +442,14 @@ AdminNotify.init(
     sequelize,
     tableName: "admin_notify",
     modelName: "AdminNotify",
+    hooks: {
+      afterDestroy: async (instance, options) => {
+        if (options?.deleted_by) {
+          instance.setDataValue("deleted_by", options?.deleted_by);
+          await instance.save();
+        }
+      },
+    },
   }
 );
 
@@ -915,6 +923,14 @@ SellerNotify.init(
     sequelize,
     tableName: "seller_notify",
     modelName: "SellerNotify",
+    hooks: {
+      afterDestroy: async (instance, options) => {
+        if (options?.deleted_by) {
+          instance.setDataValue("deleted_by", options?.deleted_by);
+          await instance.save();
+        }
+      },
+    },
   }
 );
 
@@ -1458,6 +1474,14 @@ CustomerNotify.init(
     sequelize,
     tableName: "customer_notify",
     modelName: "CustomerNotify",
+    hooks: {
+      afterDestroy: async (instance, options) => {
+        if (options?.deleted_by) {
+          instance.setDataValue("deleted_by", options?.deleted_by);
+          await instance.save();
+        }
+      },
+    },
   }
 );
 

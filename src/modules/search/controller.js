@@ -11,7 +11,7 @@ const categoryAttributes = require("../categories/attributes");
 const subcategoryAttributes = require("../sub-categories/attributes");
 const productsAttributes = require("../products/attributes");
 const brandsAttribute = require("../brand/attributes");
-const prVariationsAttributes = require("../product_variations/attributes");
+const prVariationsAttributes = require("../product-variations/attributes");
 
 exports.Search = async (req, res, next) => {
   try {

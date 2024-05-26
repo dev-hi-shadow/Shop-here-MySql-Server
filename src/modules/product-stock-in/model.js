@@ -1,27 +1,33 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
 
-class OrItems extends Model {
+class PrStockIn extends Model {
   static associate(db) {
-    OrItems.belongsTo(db.Users, {
-      as: "order",
-      foreignKey: "order_id",
+    PrStockIn.belongsTo(db.Users, {
+      foreignKey: "created_by",
+      sourceKey: "id",
     });
-    OrItems.belongsTo(db.PrVariations, {
-      as: "variation",
-      foreignKey: "variation_id",
+    PrStockIn.belongsTo(db.Users, {
+      foreignKey: "updated_by",
+      sourceKey: "id",
     });
-    OrItems.belongsTo(db.Products, {
-      as: "product",
+    PrStockIn.belongsTo(db.Users, {
+      foreignKey: "deleted_by",
+      sourceKey: "id",
+    });
+    PrStockIn.belongsTo(db.Products, {
       foreignKey: "product_id",
+      sourceKey: "id",
+      as : "product"
     });
-    OrItems.belongsTo(db.Orders, {
-        foreignKey: "order_id",
+    PrStockIn.belongsTo(db.PrVariations, {
+      foreignKey: "variation_id",
+      sourceKey: "id",
+      as : "variation"
     });
   }
 }
-
-OrItems.init(
+PrStockIn.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -45,17 +51,18 @@ OrItems.init(
         key: "id",
       },
     },
-    order_id: {
-      type: DataTypes.INTEGER,
+    invoice_number: {
+      type: DataTypes.STRING,
       allowNull: false,
-      references: {
-        model: "orders",
-        key: "id",
-      },
+    },
+    source: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 0,
     },
     created_by: {
       type: DataTypes.INTEGER,
@@ -65,12 +72,16 @@ OrItems.init(
       },
       allowNull: false,
     },
-    created_by: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "users",
-        key: "id",
-      },
+    notes: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    expiry_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    quality_check_passed: {
+      type: DataTypes.BOOLEAN,
       allowNull: true,
     },
     deleted_by: {
@@ -92,8 +103,8 @@ OrItems.init(
   },
   {
     sequelize,
-    tableName: "or_items",
-    modelName: "OrItems",
+    tableName: "pr_stock_in",
+    modelName: "PrStockIn",
     hooks: {
       afterDestroy: async (instance, options) => {
         if (options?.deleted_by) {
@@ -105,4 +116,4 @@ OrItems.init(
   }
 );
 
-module.exports = OrItems;
+module.exports = PrStockIn;

@@ -15,19 +15,19 @@ const Taxes = require("../modules/taxes/model");
 const Units = require("../modules/units/model");
 const SubCategoryTax = require("../modules/sub-category-taxes/model");
 const Products = require("../modules/products/model");
-const PrVariationsAttributes = require("../modules/product_variation_attributes/model");
-const PrVariations = require("../modules/product_variations/model");
+const PrVariationsAttributes = require("../modules/product-variation-attributes/model");
+const PrVariations = require("../modules/product-variations/model");
 const Faqs = require("../modules/faqs/model");
-const PrStockIn = require("../modules/product_stock_in/model");
-const PrStockOut = require("../modules/product_stock_out/model");
+const PrStockIn = require("../modules/product-stock-in/model");
+const PrStockOut = require("../modules/product-stock-out/model");
 const Orders = require("../modules/orders/model");
 const OrItems = require("../modules/order-items/model");
 const QbConfig = require("../modules/quickbook-configuration/model");
-const UserZipCodes = require("../modules/user_zip_codes/model");
+const UserZipCodes = require("../modules/user-zip-codes/model");
 const Files = require("../modules/files/model");
 const RatingReviews = require("../modules/ratings-reviews/model");
 const Offers = require("../modules/offers/model");
-
+const CartItems = require("../modules/cart-items/model");
 
 const db = {
   Roles,
@@ -56,7 +56,8 @@ const db = {
   UserZipCodes,
   Files,
   RatingReviews,
-  Offers
+  Offers,
+  CartItems,
 };
 
 Object.keys(db).forEach((modelName) => {

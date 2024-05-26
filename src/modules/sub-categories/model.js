@@ -97,6 +97,14 @@ SubCategories.init(
     sequelize,
     tableName: "sub_categories",
     modelName: "SubCategories",
+    hooks: {
+      afterDestroy: async (instance, options) => {
+        if (options?.deleted_by) {
+          instance.setDataValue("deleted_by", options?.deleted_by);
+          await instance.save();
+        }
+      },
+    },
   }
 );
 module.exports = SubCategories;

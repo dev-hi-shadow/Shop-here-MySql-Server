@@ -2,6 +2,7 @@ const JWT = require("jsonwebtoken");
 const { Users, Roles } = require("../models");
 const userAttributes = require("../modules/users/attributes");
 const rolesAttributes = require("../modules/roles/attributes");
+const { ROLES } = require("../constants");
 
 exports.verifyAuthToken = async (req, res, next) => {
   try {
@@ -51,17 +52,17 @@ exports.verifyAuthToken = async (req, res, next) => {
   }
 };
 
-exports.restrictTo = (...roles) => {
-  if (!roles.includes(req.user.role.name)) {
-    return res.status(403).json({
-      status: 403,
-      success: false,
-      message: "Unauthorized access",
-      data: null,
-    });
-  }
-  next();
-};
+exports.restrictTo =
+  (...roles) =>
+  (req, res, next) => {
+    if (!roles?.includes(req.user?.role?.name)) {
+      return res.status(400).json({
+        status: false,
+        message: "Access denide.",
+      });
+    }
+    next();
+  };
 
 exports.JoiValidator = (schema) => (req, res, next) => {
   try {

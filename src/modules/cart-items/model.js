@@ -1,33 +1,33 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
 
-class PrStockIn extends Model {
+class CartItems extends Model {
   static associate(db) {
-    PrStockIn.belongsTo(db.Users, {
+    CartItems.belongsTo(db.Users, {
       foreignKey: "created_by",
       sourceKey: "id",
     });
-    PrStockIn.belongsTo(db.Users, {
+    CartItems.belongsTo(db.Users, {
       foreignKey: "updated_by",
       sourceKey: "id",
     });
-    PrStockIn.belongsTo(db.Users, {
+    CartItems.belongsTo(db.Users, {
       foreignKey: "deleted_by",
       sourceKey: "id",
     });
-    PrStockIn.belongsTo(db.Products, {
+    CartItems.belongsTo(db.Products, {
       foreignKey: "product_id",
+      as  : "product",
       sourceKey: "id",
-      as : "product"
     });
-    PrStockIn.belongsTo(db.PrVariations, {
+    CartItems.belongsTo(db.PrVariations, {
       foreignKey: "variation_id",
+      as  : "variation",
       sourceKey: "id",
-      as : "variation"
     });
   }
 }
-PrStockIn.init(
+CartItems.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -51,61 +51,54 @@ PrStockIn.init(
         key: "id",
       },
     },
-    invoice_number: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    source: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0,
+      defaultValue: 1,
+    },
+    price_on_add: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     created_by: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: "users",
         key: "id",
       },
-      allowNull: false,
-    },
-    notes: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    expiry_date: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    quality_check_passed: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
     },
     deleted_by: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "users",
         key: "id",
       },
-      allowNull: true,
     },
     updated_by: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "users",
         key: "id",
       },
-      allowNull: true,
     },
   },
+
   {
     sequelize,
-    tableName: "pr_stock_in",
-    modelName: "PrStockIn",
+    tableName: "cart_items",
+    modelName: "CartItems",    
+    hooks: {
+      afterDestroy: async (instance, options) => {
+        if (options?.deleted_by) {
+          instance.setDataValue("deleted_by", options?.deleted_by);
+          await instance.save();
+        }
+      },
+    },
   }
 );
 
-module.exports = PrStockIn;
+module.exports = CartItems;

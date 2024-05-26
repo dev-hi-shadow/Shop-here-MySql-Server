@@ -29,6 +29,14 @@ NotificationsAlerts.init(
     sequelize,
     tableName: "notifications_alerts",
     modelName: "NotificationsAlerts",
+    hooks: {
+      afterDestroy: async (instance, options) => {
+        if (options?.deleted_by) {
+          instance.setDataValue("deleted_by", options?.deleted_by);
+          await instance.save();
+        }
+      },
+    },
   }
 );
 

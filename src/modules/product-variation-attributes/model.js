@@ -1,41 +1,26 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
 
-class OrItems extends Model {
+class PrVariationsAttributes extends Model {
   static associate(db) {
-    OrItems.belongsTo(db.Users, {
-      as: "order",
-      foreignKey: "order_id",
+    PrVariationsAttributes.belongsTo(db.Attributes, {
+      as: "attributes", 
+      foreignKey: "attribute_id",
     });
-    OrItems.belongsTo(db.PrVariations, {
+    PrVariationsAttributes.belongsTo(db.PrVariations, {
       as: "variation",
       foreignKey: "variation_id",
-    });
-    OrItems.belongsTo(db.Products, {
-      as: "product",
-      foreignKey: "product_id",
-    });
-    OrItems.belongsTo(db.Orders, {
-        foreignKey: "order_id",
     });
   }
 }
 
-OrItems.init(
+PrVariationsAttributes.init(
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false,
       autoIncrement: true,
-    },
-    product_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "products",
-        key: "id",
-      },
     },
     variation_id: {
       type: DataTypes.INTEGER,
@@ -45,55 +30,44 @@ OrItems.init(
         key: "id",
       },
     },
-    order_id: {
+    attribute_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
-        model: "orders",
+        model: "attributes",
         key: "id",
       },
     },
-    quantity: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+
     created_by: {
       type: DataTypes.INTEGER,
-      references: {
-        model: "users",
-        key: "id",
-      },
       allowNull: false,
-    },
-    created_by: {
-      type: DataTypes.INTEGER,
       references: {
         model: "users",
         key: "id",
       },
-      allowNull: true,
-    },
-    deleted_by: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "users",
-        key: "id",
-      },
-      allowNull: true,
     },
     updated_by: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "users",
         key: "id",
       },
+    },
+    deleted_by: {
+      type: DataTypes.INTEGER,
       allowNull: true,
+      references: {
+        model: "users",
+        key: "id",
+      },
     },
   },
   {
     sequelize,
-    tableName: "or_items",
-    modelName: "OrItems",
+    tableName: "pr_variation_attributes",
+    modelName: "PrVariationsAttributes",
     hooks: {
       afterDestroy: async (instance, options) => {
         if (options?.deleted_by) {
@@ -105,4 +79,4 @@ OrItems.init(
   }
 );
 
-module.exports = OrItems;
+module.exports = PrVariationsAttributes;

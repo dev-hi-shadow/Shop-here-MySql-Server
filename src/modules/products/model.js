@@ -36,7 +36,7 @@ class Products extends Model {
     Products.hasMany(db.PrVariations, {
       foreignKey: "product_id",
       as: "variations",
-    });    
+    });
     Products.hasMany(db.PrStockIn, {
       foreignKey: "product_id",
       as: "stocks",
@@ -57,6 +57,9 @@ class Products extends Model {
     Products.hasMany(db.RatingReviews, {
       foreignKey: "product_id",
       as: "rating_reviews",
+    });
+    Products.hasMany(db.CartItems, {
+      foreignKey: "product_id",
     });
   }
 }
@@ -269,6 +272,14 @@ Products.init(
     sequelize,
     tableName: "products",
     modelName: "Products",
+    hooks: {
+      afterDestroy: async (instance, options) => {
+        if (options?.deleted_by) {
+          instance.setDataValue("deleted_by", options?.deleted_by);
+          await instance.save();
+        }
+      },
+    },
   }
 );
 

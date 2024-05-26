@@ -1,20 +1,24 @@
 const { Model, DataTypes } = require("sequelize");
 const { sequelize } = require("../../config/mysql");
 
-class PrVariationsAttributes extends Model {
+class UserZipCodes extends Model {
   static associate(db) {
-    PrVariationsAttributes.belongsTo(db.Attributes, {
-      as: "attributes", 
-      foreignKey: "attribute_id",
+    UserZipCodes.belongsTo(db.Users, {
+      foreignKey: "created_by",
+      sourceKey: "id",
     });
-    PrVariationsAttributes.belongsTo(db.PrVariations, {
-      as: "variation",
-      foreignKey: "variation_id",
+    UserZipCodes.belongsTo(db.Users, {
+      foreignKey: "updated_by",
+      sourceKey: "id",
+    });
+    UserZipCodes.belongsTo(db.Users, {
+      foreignKey: "deleted_by",
+      sourceKey: "id",
     });
   }
 }
 
-PrVariationsAttributes.init(
+UserZipCodes.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -22,34 +26,13 @@ PrVariationsAttributes.init(
       allowNull: false,
       autoIncrement: true,
     },
-    variation_id: {
+    zip_code: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: "pr_variations",
-        key: "id",
-      },
     },
-    attribute_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: "attributes",
-        key: "id",
-      },
-    },
-
     created_by: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: "users",
-        key: "id",
-      },
-    },
-    updated_by: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
       references: {
         model: "users",
         key: "id",
@@ -63,12 +46,28 @@ PrVariationsAttributes.init(
         key: "id",
       },
     },
+    updated_by: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id",
+      },
+    },
   },
   {
     sequelize,
-    tableName: "pr_variation_attributes",
-    modelName: "PrVariationsAttributes",
+    tableName: "user_zip_codes",
+    modelName: "UserZipCodes",
+    hooks: {
+      afterDestroy: async (instance, options) => {
+        if (options?.deleted_by) {
+          instance.setDataValue("deleted_by", options?.deleted_by);
+          await instance.save();
+        }
+      },
+    },
   }
 );
 
-module.exports = PrVariationsAttributes;
+module.exports = UserZipCodes;

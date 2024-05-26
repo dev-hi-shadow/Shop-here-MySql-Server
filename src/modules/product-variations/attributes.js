@@ -12,4 +12,5 @@ module.exports = {
     "length",
     "depth",
   ],
+  cartList: ["variation_name", "retail_price"],
 };

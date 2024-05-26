@@ -1,13 +1,13 @@
 const { sequelize } = require("../../config/mysql");
 const { getTableFilters, getFileNameFromFileObject } = require("../../helpers");
-const PrVariationsAttr = require("../product_variations/attributes");
+const PrVariationsAttr = require("../product-variations/attributes");
 const brandAttributes = require("../brand/attributes");
 const categoriesAttributes = require("../categories/attributes");
 const subcategoriesAttributes = require("../sub-categories/attributes");
 const filesAttributes = require("../files/attributes");
 const unitsAttributes = require("../units/attributes");
 const ratingReviewsAttributes = require("../ratings-reviews/attributes");
-const PrVariationsAttributesAttr = require("../product_variation_attributes/attributes");
+const PrVariationsAttributesAttr = require("../product-variation-attributes/attributes");
 const AttributesAttr = require("../attributes/attributes");
 const usersAttributes = require("../users/attributes");
 const {
@@ -143,9 +143,9 @@ exports.GetProducts = async (req, res, next) => {
           include: [
             {
               model: Users,
-              as  : "rating_by",
+              as: "rating_by",
               attributes: usersAttributes[type],
-             }
+            },
           ],
         },
         {
